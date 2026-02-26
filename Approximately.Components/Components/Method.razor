@@ -1,0 +1,37 @@
+﻿<div class="container mx-auto max-w-5xl p-6 text-gray-900">
+    <header class="mb-12 border-b border-gray-100 pb-6">
+        <h1 class="text-4xl font-light tracking-tight capitalize">@Title</h1>
+    </header>
+
+    <div class="mb-10 flex gap-10">
+        <button @onclick="() => activeTab = 0" class="pb-2 text-2xl font-semibold transition-all @(activeTab == 0 ? "border-b-2 border-black text-black" : "text-gray-400 hover:text-gray-600")">
+            LEARN
+        </button>
+        <button @onclick="() => activeTab = 1" class="pb-2 text-2xl font-semibold transition-all @(activeTab == 1 ? "border-b-2 border-black text-black" : "text-gray-400 hover:text-gray-600")">
+            SOLVE
+        </button>
+    </div>
+
+    <div>
+        @if (activeTab == 0)
+        {
+            <div class="prose prose-gray max-w-none">
+                @LearnSection
+            </div>
+        }
+        else
+        {
+            <section>
+                @SolveSection
+            </section>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public RenderFragment? LearnSection { get; set; }
+    [Parameter] public RenderFragment? SolveSection { get; set; }
+
+    private int activeTab = 0;
+}

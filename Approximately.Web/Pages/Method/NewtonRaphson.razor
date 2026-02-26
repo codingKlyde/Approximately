@@ -1,0 +1,137 @@
+﻿@page "/method/newton-raphson"
+
+<Method Title="Newton-Raphson Method">
+    <LearnSection>
+        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+            <div class="flex items-start gap-4">
+                <div>
+                    <p class="leading-relaxed text-gray-700">
+                        Perhaps the most widely used of all root-locating formulas is the Newton-Raphson method. If the initial guess at the root is $x_i$, a tangent line can be extended from the point $[x_i, f(x_i)]$ down to the x-axis. The point where this tangent crosses the x-axis represents an improved estimate of the root.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Algorithm
+                </h3>
+                <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
+                    <li>Find points a and b such that a is less than b$ and $f(a) \cdot f(b) is less than 0.</li>
+                    <li>Take the interval $[a, b] and find the next value (initial guess) x_0 = \frac{a + b}{2}$.</li>
+                    <li>Find $f(x_0)$ and the derivative f'(x_0).</li>
+                    <li>Calculate the next estimate x_1 using the formula.</li>
+                    <li>If $f(x_1) = 0 then x_1 is an exact root, else set x_0 = x_1.</li>
+                    <li>Repeat steps 3 and 4 until f(x_1) = 0 or the accuracy threshold is met.</li>
+                </ol>
+            </div>
+
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Trade-offs
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-green-600 uppercase">Advantages</span>
+                        <p class="text-sm text-gray-600">Highly efficient. It exhibits <strong>quadratic convergence</strong>, meaning the number of significant figures of accuracy approximately doubles with each iteration.</p>
+                    </div>
+                    <div class="h-px w-full bg-gray-100"></div>
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
+                        <p class="text-sm text-gray-600">A near-zero slope ($f'(x) \approx 0$) is a disaster because it causes division by zero in the formula, flinging the solution infinitely far away. It can also endlessly oscillate around local maximums or minimums.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-10 border-y border-gray-100 py-10">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">Manual Table Calculation Guide</h3>
+            <div class="w-fit overflow-hidden rounded-sm border border-gray-100 bg-white">
+                <table class="border-collapse tracking-tighter text-[10px] text-gray-500">
+                    <thead class="border-b border-gray-100 bg-gray-50/50">
+                        <tr>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">i</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">xi</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">f(xi)</th>
+                            <th class="px-8 py-2 text-center">f'(xi)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-gray-400">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center italic">1</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center italic">Initial x0</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center italic">f(x0)</td>
+                            <td class="px-8 py-2 text-center italic">f'(x0)</td>
+                        </tr>
+                        @for (int i = 2; i <= 5; i++)
+                        {
+                            <tr class="text-gray-400">
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">@i</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">Calculated xi</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">-</td>
+                                <td class="px-8 py-2 text-center italic">-</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <div class="mt-8">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                Real-World Applications
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-microchip"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Computer Graphics</h4>
+                    <p class="text-xs text-gray-500">Famously used in the Quake III engine's "Fast Inverse Square Root" algorithm to rapidly compute lighting and reflection angles.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-satellite"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">GPS Navigation</h4>
+                    <p class="text-xs text-gray-500">Employed to rapidly solve non-linear multi-dimensional intersection equations of satellite spheres to pinpoint coordinates.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-robot"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Machine Learning</h4>
+                    <p class="text-xs text-gray-500">Forms the foundation for advanced optimization algorithms (like Quasi-Newton methods) used to minimize loss functions when training AI models.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            @* Fun Fact *@
+            <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
+                <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
+                    Fun Fact
+                </h3>
+                <p class="text-sm">
+                    The error in Newton-Raphson is roughly proportional to the square of the previous error ($E_{i+1} \propto E_i^2$). This means if your guess is accurate to 2 decimal places on iteration one, it will jump to 4 places on iteration two, and 8 places on iteration three!
+                </p>
+            </div>
+
+            @* Pro Tip *@
+            <div class="rounded-xl border border-blue-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+                    Pro Tip
+                </h3>
+                <p class="text-sm text-gray-600">
+                    There is no general convergence criterion for Newton-Raphson. Its success depends entirely on the nature of the function and how close your initial guess is to the true root. Always graph your function first if possible to pick a safe starting point.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 border-t border-gray-100 pt-6">
+            <h3 class="mb-4 font-bold tracking-widest text-[10px] text-gray-400 uppercase">References</h3>
+            <ul class="space-y-2 text-xs text-gray-500">
+                <li>Chapra, S. C., & Canale, R. P. (2015). <em>Numerical Methods for Engineers</em> (7th ed.). McGraw-Hill Education.</li>
+            </ul>
+        </div>
+    </LearnSection>
+</Method>

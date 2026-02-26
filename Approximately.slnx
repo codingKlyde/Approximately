@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Approximately.Components/Approximately.Components.csproj" />
+  <Project Path="Approximately.Web/Approximately.Web.csproj" />
+</Solution>

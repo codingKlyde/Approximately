@@ -1,0 +1,136 @@
+﻿@inject IToastService ToastService
+@page "/method/fixed-point-iteration"
+
+
+<Method Title="Fixed-Point Iteration">
+    <LearnSection>
+        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+            <div class="flex items-start gap-4">
+                <div>
+                    <p class="leading-relaxed text-gray-700">
+                        The Simple Fixed-Point Iteration method (also called one-point iteration or successive substitution) is an open method that works by rearranging the target function $f(x) = 0$ so that $x$ is isolated on the left-hand side, forming the equation $x = g(x)$. This provides a direct formula to predict a new value of $x$ as a function of the old value of $x$.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Algorithm
+                </h3>
+                <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
+                    <li>Rearrange the function f(x) = 0 algebraically or by adding $x$ to both sides to form x = g(x).</li>
+                    <li>Choose an initial guess for the root, x_0.</li>
+                    <li>Compute a new estimate x_{i+1}$ using the iterative formula: <br/> x_{i+1} = g(x_i)</li>
+                    <li>Determine the approximate relative error using: <br/> \varepsilon_a = \left| \frac{x_{i+1} - x_i}{x_{i+1}} \right| 100\%</li>
+                    <li>Repeat the process, substituting the new $x_{i+1}$ back into $g(x)$, until the error $\varepsilon_a$ is minimal.</li>
+                </ol>
+            </div>
+
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Trade-offs
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-green-600 uppercase">Advantages</span>
+                        <p class="text-sm text-gray-600">Extremely simple to program and requires only one initial guess. When it works, it exhibits characteristic "linear convergence" where the error is proportional to the previous error.</p>
+                    </div>
+                    <div class="h-px w-full bg-gray-100"></div>
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
+                        <p class="text-sm text-gray-600">Highly unstable. It will only converge if the absolute value of the derivative of $g(x)$ is less than 1 ($|g'(x)| is less than 1$). If $|g'(x)| > 1$, the errors grow and the method diverges.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-10 border-y border-gray-100 py-10">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">Manual Table Calculation Guide</h3>
+            <div class="w-fit overflow-hidden rounded-sm border border-gray-100 bg-white">
+                <table class="border-collapse tracking-tighter text-[10px] text-gray-500">
+                    <thead class="border-b border-gray-100 bg-gray-50/50">
+                        <tr>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">i</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">xi</th>
+                            <th class="px-8 py-2 text-center">g(xi)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-gray-400">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center italic">1</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center italic">Initial Guess</td>
+                            <td class="px-8 py-2 text-center italic">Calculated g(x)</td>
+                        </tr>
+                        @for (int i = 2; i <= 5; i++)
+                        {
+                            <tr class="text-gray-400">
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">@i</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">Previous g(xi)</td>
+                                <td class="px-8 py-2 text-center italic">-</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+        <div class="mt-8">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                Real-World Applications
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-network-wired"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Search Engines</h4>
+                    <p class="text-xs text-gray-500">Google's original PageRank algorithm relies on finding the principal eigenvector of a web matrix, which is formulated as a massive fixed-point iteration problem.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Economics</h4>
+                    <p class="text-xs text-gray-500">Used to find the equilibrium state in macroeconomic supply and demand models where prices stabilize iteratively.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-temperature-half"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Steady-State Physics</h4>
+                    <p class="text-xs text-gray-500">Used in fluid dynamics and heat transfer to predict temperature distributions when a system finally reaches thermal equilibrium.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            @* Fun Fact *@
+            <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
+                <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
+                    Fun Fact
+                </h3>
+                <p class="text-sm">
+                    If you plot the functions $y_1 = x$ and $y_2 = g(x)$ separately, the root represents the intersection of the two curves. The path the algorithm takes to get there forms visual patterns called "monotone" (staircase shapes) if $g'(x)$ is positive, or "oscillating" (spiral/cobweb shapes) if $g'(x)$ is negative!
+                </p>
+            </div>
+
+            @* Pro Tip *@
+            <div class="rounded-xl border border-blue-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+                    Pro Tip
+                </h3>
+                <p class="text-sm text-gray-600">
+                    If your table numbers are rocketing toward infinity instead of settling down, your method is diverging. To fix it, you must algebraically rearrange $f(x) = 0$ into a completely different $x = g(x)$ format until you find one where the slope is relatively flat ($|g'(x)| is less than 1$).
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 border-t border-gray-100 pt-6">
+            <h3 class="mb-4 font-bold tracking-widest text-[10px] text-gray-400 uppercase">References</h3>
+            <ul class="space-y-2 text-xs text-gray-500">
+                <li>Chapra, S. C., & Canale, R. P. (2015). <em>Numerical Methods for Engineers</em> (7th ed.). McGraw-Hill Education.</li>
+            </ul>
+        </div>
+    </LearnSection>
+    
+    <SolveSection>
+        @* To be implemented next *@
+    </SolveSection>
+</Method>

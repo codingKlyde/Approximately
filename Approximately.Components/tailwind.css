@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+
+@source "../Approximately.Web/**/*.{razor,html,cs}";
+@source "../Approximately.Web/*.{razor,html,cs}";
+
+@source "../Approximately.Web/Layout/**/*.{razor,html,cs}";
+@source "../Approximately.Web/Pages/**/*.{razor,html,cs}";
+@source "../Approximately.Web/Pages/Method/**/*.{razor,html,cs}";

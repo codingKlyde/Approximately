@@ -1,0 +1,269 @@
+﻿@page "/"
+@inject NavigationManager NavManager
+
+
+<div class="flex min-h-screen flex-col bg-gray-50/30">
+    <section class="relative overflow-hidden border-b border-gray-100 bg-white pt-24 pb-16">
+        <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] opacity-20 [background-size:16px_16px]"></div>
+        <div class="relative mx-auto max-w-4xl px-6 text-center">
+            <div class="mb-6 inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">
+                <span class="mr-2 flex h-2 w-2 rounded-full bg-blue-600"></span>
+                v0.1 Alpha Build
+            </div>
+
+            <h1 class="mb-6 text-6xl font-black tracking-tight text-gray-900 md:text-8xl">
+                Approximately<span class="text-blue-600">.</span>
+            </h1>
+
+            <p class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-gray-500">
+                Visualize, analyze, and solve complex equations with ease
+            </p>
+
+            <div class="mx-auto max-w-2xl rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 shadow-sm">
+                <div class="flex items-start justify-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation mt-0.5 text-amber-600"></i>
+                    <div class="text-left">
+                        <p class="font-bold">Experimental Release</p>
+                        <p class="mt-1 leading-relaxed text-amber-800 opacity-90">
+                            This is an early testing version. Algorithms may yield <strong>wrong or inaccurate results</strong> in edge cases.
+                            Please double-check all answers manually or compare with established tools.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="mx-auto w-full max-w-7xl flex-grow px-6 py-16">
+        @* Category: Roots of Equations *@
+        <div class="mb-16">
+            <div class="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
+                <h2 class="text-lg font-bold tracking-tight text-gray-900 uppercase">Roots of Equations</h2>
+                <span class="text-xs font-bold text-gray-400">@RootMethods.Count Methods</span>
+            </div>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                @foreach (var method in RootMethods)
+                {
+                    <div @onclick='() => NavManager.NavigateTo(method.Url)'
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-100 hover:shadow-xl">
+
+                        <div class="mb-4 flex items-start justify-between">
+                            <div class="rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600">
+                                <i class="@method.IconClass fa-lg"></i>
+                            </div>
+                            <span class="rounded-full border border-gray-100 px-2 py-1 font-bold tracking-wide text-[10px] text-gray-500 uppercase @GetBadgeColor(method.Tag)">
+                                @method.Tag
+                            </span>
+                        </div>
+
+                        <h3 class="mb-2 text-lg font-bold text-gray-900">@method.Title</h3>
+                        <p class="mb-6 text-sm leading-relaxed text-gray-500">@method.Description</p>
+
+                        <div class="mt-auto flex items-center text-xs font-bold text-gray-900 opacity-0 transition-opacity group-hover:opacity-100">
+                            Launch Solver <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* Category: Linear Algebra *@
+        <div class="mb-16">
+            <div class="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
+                <h2 class="text-lg font-bold tracking-tight text-gray-900 uppercase">Linear Algebra</h2>
+                <span class="text-xs font-bold text-gray-400">@LinearMethods.Count Methods</span>
+            </div>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                @foreach (var method in LinearMethods)
+                {
+                    <div @onclick='() => NavManager.NavigateTo(method.Url)'
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-purple-100 hover:shadow-xl">
+
+                        <div class="mb-4 flex items-start justify-between">
+                            <div class="rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-purple-50 group-hover:text-purple-600">
+                                <i class="@method.IconClass fa-lg"></i>
+                            </div>
+                            <span class="rounded-full border border-gray-100 px-2 py-1 font-bold tracking-wide text-[10px] text-gray-500 uppercase @GetBadgeColor(method.Tag)">
+                                @method.Tag
+                            </span>
+                        </div>
+
+                        <h3 class="mb-2 text-lg font-bold text-gray-900">@method.Title</h3>
+                        <p class="mb-6 text-sm leading-relaxed text-gray-500">@method.Description</p>
+
+                        <div class="mt-auto flex items-center text-xs font-bold text-gray-900 opacity-0 transition-opacity group-hover:opacity-100">
+                            Launch Solver <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    @* --- MISSION & VISION --- *@
+    <section class="border-t border-gray-100 bg-white py-20">
+        <div class="mx-auto max-w-6xl px-6">
+            <div class="grid grid-cols-1 gap-16 md:grid-cols-2">
+                <div class="space-y-6">
+                    <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                        <i class="fa-solid fa-rocket fa-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Our Mission</h3>
+                    <p class="leading-relaxed text-gray-600">
+                        To democratize access to powerful numerical analysis tools. We aim to replace heavy, expensive software with lightweight, accessible, and transparent web-based solutions that empower students and engineers to solve complex problems instantly.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+                        <i class="fa-regular fa-eye fa-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Our Vision</h3>
+                    <p class="leading-relaxed text-gray-600">
+                        We envision a future where computational mathematics is intuitive and interactive. By removing the barrier of complex syntax and setup, we strive to be the standard open-source reference for learning and applying numerical methods globally.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* --- PROPER FOOTER --- *@
+    <footer class="border-t border-gray-200 bg-gray-50 pt-16 pb-8">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="grid grid-cols-1 gap-12 border-b border-gray-200 pb-12 md:grid-cols-4">
+
+                @* Brand Column *@
+                <div class="md:col-span-2">
+                    <h4 class="mb-4 text-xl font-black tracking-tight text-gray-900">Approximately.</h4>
+                    <p class="max-w-xs text-sm leading-relaxed text-gray-500">
+                        An open-source educational suite built for the modern web.
+                        Solving the world's equations, one iteration at a time.
+                    </p>
+                    <div class="mt-6 flex gap-4 text-gray-400">
+                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-twitter fa-lg"></i></a>
+                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-github fa-lg"></i></a>
+                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+
+                @* Quick Access *@
+                <div>
+                    <h5 class="mb-6 text-sm font-bold tracking-widest text-gray-900 uppercase">Quick Access</h5>
+                    <ul class="space-y-4 text-sm text-gray-600">
+                        <li><a href="/" class="hover:text-blue-600 hover:underline">Home</a></li>
+                        <li><a href="/method/bisection" class="hover:text-blue-600 hover:underline">Bisection Solver</a></li>
+                        <li><a href="/method/newton-raphson" class="hover:text-blue-600 hover:underline">Newton-Raphson</a></li>
+                        <li><a href="/method/gauss-elimination" class="hover:text-blue-600 hover:underline">Matrix Solver</a></li>
+                    </ul>
+                </div>
+
+                @* Legal / Links *@
+                <div>
+                    <h5 class="mb-6 text-sm font-bold tracking-widest text-gray-900 uppercase">Resources</h5>
+                    <ul class="space-y-4 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-blue-600 hover:underline">Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-600 hover:underline">Report an Issue</a></li>
+                        <li><a href="#" class="hover:text-blue-600 hover:underline">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-600 hover:underline">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center">
+                <p class="text-xs text-gray-400">
+                    &copy; @DateTime.Now.Year Approximately. Built Blazor with ❤️ by a passionate team of developers. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+@code {
+    class MethodCard
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string Url { get; set; } = "";
+        public string Tag { get; set; } = "";
+        public string IconClass { get; set; } = "fa-solid fa-calculator";
+    }
+
+    // Root Finding
+    private List<MethodCard> RootMethods = new()
+    {
+        new MethodCard {
+            Title = "Bisection Method",
+            Description = "Robust bracketing method that divides an interval in half.",
+            Url = "/method/bisection",
+            Tag = "Bracketing",
+            IconClass = "fa-solid fa-scissors"
+        },
+        new MethodCard {
+            Title = "False-Position",
+            Description = "Linear interpolation inside a bracket for faster convergence.",
+            Url = "/method/false-position",
+            Tag = "Bracketing",
+            IconClass = "fa-solid fa-chart-line"
+        },
+        new MethodCard {
+            Title = "Secant Method",
+            Description = "Uses a difference quotient to approximate the derivative.",
+            Url = "/method/secant",
+            Tag = "Open Method",
+            IconClass = "fa-solid fa-slash"
+        },
+        new MethodCard {
+            Title = "Fixed Point Iteration",
+            Description = "Simple open method rearranging the function to x = g(x).",
+            Url = "/method/fixed-point-iteration",
+            Tag = "Open Method",
+            IconClass = "fa-solid fa-arrows-rotate"
+        },
+        new MethodCard {
+            Title = "Newton-Raphson",
+            Description = "Uses the derivative f'(x) for quadratic convergence.",
+            Url = "/method/newton-raphson",
+            Tag = "Open Method",
+            IconClass = "fa-solid fa-bolt"
+        }
+    };
+
+    // Linear Algebra
+    private List<MethodCard> LinearMethods = new()
+    {
+        new MethodCard {
+            Title = "Gauss Elimination",
+            Description = "Direct algorithm for systems of linear equations.",
+            Url = "/method/gauss-elimination",
+            Tag = "Direct",
+            IconClass = "fa-solid fa-table-cells"
+        },
+        new MethodCard {
+            Title = "Gauss-Seidel",
+            Description = "Iterative method for diagonally dominant systems.",
+            Url = "/method/gauss-seidel",
+            Tag = "Iterative",
+            IconClass = "fa-solid fa-arrow-down-up-across-line"
+        },
+        new MethodCard {
+            Title = "Gauss-Jacobi",
+            Description = "Simultaneous update iterative algorithm.",
+            Url = "/method/gauss-jacobi",
+            Tag = "Iterative",
+            IconClass = "fa-solid fa-layer-group"
+        }
+    };
+
+    private string GetBadgeColor(string tag)
+    {
+        return tag switch
+        {
+            "Bracketing" => "bg-orange-50 text-orange-600 border-orange-100",
+            "Open Method" => "bg-blue-50 text-blue-600 border-blue-100",
+            "Direct" => "bg-purple-50 text-purple-600 border-purple-100",
+            "Iterative" => "bg-green-50 text-green-600 border-green-100",
+            _ => "bg-gray-50 text-gray-600"
+        };
+    }
+}

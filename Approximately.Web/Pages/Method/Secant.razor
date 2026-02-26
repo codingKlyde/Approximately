@@ -1,0 +1,438 @@
+﻿@inject IToastService ToastService
+@page "/method/secant"
+
+
+<Method Title="Secant Method">
+    <LearnSection>
+        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+            <div class="flex items-start gap-4">
+                <div>
+                    <p class="leading-relaxed text-gray-700">
+                        The Secant method is an open method that approximates the derivative
+                        of a function using two initial points. Unlike bracketing methods (like Bisection),
+                        it does not require a sign change to begin. It draws a "secant line" through the
+                        two points and uses where that line hits the x-axis as the next guess.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Algorithm
+                </h3>
+                <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
+                    <li>Identify two initial points a and b. (They do not need to bracket the root).</li>
+                    <li>Calculate the next root estimate x_r using the formula.</li>
+                    <li>Evaluate f(x_r) by substituting x_r into the target function. If it's close enough to 0, stop.</li>
+                    <li>Update the points: the previous b becomes the new a (a = b).</li>
+                    <li>The calculated x_r becomes the new b (b = x_r).</li>
+                    <li>Repeat until the error is minimal.</li>
+                </ol>
+            </div>
+
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Trade-offs
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-green-600 uppercase">Advantages</span>
+                        <p class="text-sm text-gray-600">Superlinear convergence (generally faster than Bisection). Does not require calculating the derivative f'(x) like Newton-Raphson.</p>
+                    </div>
+                    <div class="h-px w-full bg-gray-100"></div>
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
+                        <p class="text-sm text-gray-600">Can diverge (fail to find a root) if the initial guesses are poor or if the function is too flat. No guarantee of convergence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-10 border-y border-gray-100 py-10">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">Manual Table Calculation Guide</h3>
+            <div class="w-fit overflow-hidden rounded-sm border border-gray-100 bg-white">
+                <table class="border-collapse tracking-tighter text-[10px] text-gray-500">
+                    <thead class="border-b border-gray-100 bg-gray-50/50">
+                        <tr>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">xi</th>
+                            <th class="px-8 py-2 text-center">f(xi)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <tr class="text-gray-400">
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">-</td>
+                                <td class="px-8 py-2 text-center italic">-</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                Real-World Applications
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Financial Technology</h4>
+                    <p class="text-xs text-gray-500">Used to rapidly calculate the internal rate of return (IRR) in complex financial models and bond yields.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-flask"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Chemical Engineering</h4>
+                    <p class="text-xs text-gray-500">Determining equilibrium constants in multi-phase chemical reactions where equations are stiff.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Telecommunications</h4>
+                    <p class="text-xs text-gray-500">Used in signal processing algorithms where taking a true mathematical derivative is computationally expensive.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
+                <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
+                    Fun Fact
+                </h3>
+                <p class="text-sm">
+                    The Secant method is essentially Newton's Method for people who don't want to do calculus. It replaces the exact derivative (slope) with an approximation between two points.
+                </p>
+            </div>
+            <div class="rounded-xl border border-blue-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+                    Pro Tip
+                </h3>
+                <p class="text-sm text-gray-600">
+                    If the function has a flat spot (slope near zero) between your guesses, the secant line will shoot off to infinity, causing the method to fail. Always pick guesses reasonably close to the root.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 border-t border-gray-100 pt-6">
+            <h3 class="mb-4 font-bold tracking-widest text-[10px] text-gray-400 uppercase">References</h3>
+            <ul class="space-y-2 text-xs text-gray-500">
+                <li>Chapra, S. C., & Canale, R. P. (2015). <em>Numerical Methods for Engineers</em> (7th ed.). McGraw-Hill Education.</li>
+                <li>AtoZMath. (n.d.). <em>Secant Method</em>. <a href="https://atozmath.com/example/CONM/Bisection.aspx?he=e&q=se" target="_blank" class="text-blue-500 hover:underline">View Reference</a></li>
+            </ul>
+        </div>
+    </LearnSection>
+
+    <SolveSection>
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+
+                @* Function Input *@
+                <div class="space-y-4">
+                    <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
+                        Target Function <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute top-1/2 left-0 -translate-y-1/2 font-mono text-gray-400">f(x)=</span>
+                        <input @bind="functionInput" placeholder="x^3 - x - 2"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                    </div>
+                    <p class="text-[10px] text-gray-400">Supported: sin, cos, tan, log, exp, ^</p>
+                </div>
+
+                @* Initial Guesses Input *@
+                <div class="space-y-4">
+                    <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
+                        Initial Guesses <span class="text-red-400">*</span>
+                    </label>
+                    <div class="flex items-center gap-4">
+                        <input @bind="aInput" type="number" placeholder="a"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                        <span class="text-gray-300">and</span>
+                        <input @bind="bInput" type="number" placeholder="b"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" @bind="UseIterationLimit" id="iterCheck"
+                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                            <label for="iterCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Iterations</label>
+                        </div>
+                        <input @bind="totalIteration" type="number" disabled="@(!UseIterationLimit)"
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                    </div>
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" @bind="UseErrorThreshold" id="errorCheck"
+                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                            <label for="errorCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Error (%)</label>
+                        </div>
+                        <input @bind="errorThreshold" type="number" disabled="@(!UseErrorThreshold)"
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 flex justify-end gap-4 border-t border-gray-100 pt-6">
+                <button @onclick="() => iterations.Clear()"
+                        class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
+                    CLEAR
+                </button>
+                <button @onclick="Calculate"
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                    CALCULATE
+                </button>
+            </div>
+        </div>
+
+        @* --- RESULTS AREA --- *@
+        @if (iterations.Any())
+        {
+            <div class="animate-fade-in-up mt-8">
+                <div class="mb-4 flex items-center gap-4 text-xs text-gray-500">
+                    <div class="rounded bg-gray-100 px-2 py-1 font-mono">f(a) = @firstFaFormula</div>
+                    <div class="rounded bg-gray-100 px-2 py-1 font-mono">f(b) = @firstFbFormula</div>
+                </div>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-center text-sm">
+                            <thead class="bg-gray-50 text-xs font-bold tracking-wider text-gray-500 uppercase">
+                                <tr>
+                                    <th class="px-6 py-4">i</th>
+                                    <th class="px-6 py-4 text-blue-600">xi</th>
+                                    <th class="px-6 py-4 font-bold text-gray-800">f(xi)</th>
+                                    <th class="px-6 py-4 text-amber-600">Error %</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @{
+                                    bool rootFoundInTable = false;
+                                }
+                                @foreach (var iter in iterations)
+                                {
+                                    bool satisfiesGoal = Math.Abs(iter.Fxi) < 1e-9 || (UseErrorThreshold && errorThreshold.HasValue && iter.Error.HasValue && iter.Error <= errorThreshold);
+
+                                    bool isHighlight = satisfiesGoal && !rootFoundInTable && iter.Index > 2;
+                                    if (satisfiesGoal && iter.Index > 2) 
+                                    rootFoundInTable = true;
+
+                                    <tr class="transition-colors hover:bg-blue-50/30 @(isHighlight ? "bg-blue-600 text-white hover:bg-blue-700" : "text-gray-600")">
+                                        <td class="px-6 py-3 font-mono">@iter.Index</td>
+                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.Xi.ToString("0.####")</td>
+                                        <td class="px-6 py-3 font-mono font-bold">@iter.Fxi.ToString("0.####")</td>
+                                        <td class="px-6 py-3 font-mono @(isHighlight ? "text-white" : "text-amber-600")">
+                                            @(iter.Error == null ? "—" : iter.Error.Value.ToString("0.####") + "%")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @* Result Summary Footer *@
+                @{
+                    var last = iterations.LastOrDefault();
+                    bool success = last != null && (Math.Abs(last.Fxi) < 1e-9 || (UseErrorThreshold && errorThreshold.HasValue && last.Error <= errorThreshold));
+                }
+
+                @if (stoppedByZeroDiv)
+                {
+                    <div class="mt-4 flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 text-blue-800">
+                        <i class="fa-solid fa-circle-info text-blue-500"></i>
+                        <span class="text-sm font-medium">
+                            Iteration stopped early. The algorithm cannot continue because f(a) and f(b) are identical, which causes divisible by zero. The root has converged.
+                        </span>
+                    </div>
+                }
+                else if (!success && UseIterationLimit)
+                {
+                    <div class="mt-4 flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+                        <span class="text-sm font-medium">The root is still further in the iterations, try increasing it to show.</span>
+                    </div>
+                }
+            </div>
+        }
+    </SolveSection>
+</Method>
+
+
+@code {
+    private string functionInput = "";
+    private string firstFaFormula = "";
+    private string firstFbFormula = "";
+    private double aInput;
+    private double bInput;
+    private double? errorThreshold;
+    private int totalIteration;
+    private List<IterationResult> iterations = new();
+
+    private bool _useIterationLimit = false;
+    private bool _useErrorThreshold = false;
+    private bool stoppedByZeroDiv = false;
+
+
+    private bool UseIterationLimit
+    {
+        get => _useIterationLimit;
+        set
+        {
+            _useIterationLimit = value;
+            if (value) _useErrorThreshold = false;
+        }
+    }
+
+    private bool UseErrorThreshold
+    {
+        get => _useErrorThreshold;
+        set
+        {
+            _useErrorThreshold = value;
+            if (value) _useIterationLimit = false;
+        }
+    }
+
+    private double f(double xValue, out string formulaDisplay)
+    {
+        try
+        {
+            string exprString = functionInput.ToLower()
+                .Replace("sin", "Sin")
+                .Replace("cos", "Cos")
+                .Replace("tan", "Tan")
+                .Replace("log", "Log10")
+                .Replace("ln", "Log")
+                .Replace("exp", "Exp");
+
+            if (exprString.Contains("^"))
+                exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"([a-zA-Z0-9\.]+)\^([a-zA-Z0-9\.]+)", "Pow($1, $2)");
+
+            var expression = new NCalc.Expression(exprString);
+            expression.Parameters["x"] = xValue;
+
+            string xStr = xValue.ToString("G6", CultureInfo.InvariantCulture);
+            formulaDisplay = functionInput.Replace("x", $"({xStr})");
+
+            var result = expression.Evaluate();
+            return Convert.ToDouble(result);
+        }
+        catch
+        {
+            formulaDisplay = "Error";
+            return 0;
+        }
+    }
+
+    private double Normalize(double val)
+    {
+        double rounded = Math.Round(val, 4);
+        if (rounded == 0) return 0;
+        return rounded;
+    }
+
+    private void Calculate()
+    {
+        iterations.Clear();
+        stoppedByZeroDiv = false;
+
+        double a = Normalize(aInput);
+        double b = Normalize(bInput);
+
+        try
+        {
+            double fa = Normalize(f(a, out firstFaFormula));
+            double fb = Normalize(f(b, out firstFbFormula));
+
+            // Only add the 1st initial guess if the user's limit allows it
+            if (!UseIterationLimit || totalIteration >= 1)
+                iterations.Add(new IterationResult { Index = 1, Xi = a, Fxi = fa, Error = null });
+
+            // Only add the 2nd initial guess if the user's limit allows it
+            if (!UseIterationLimit || totalIteration >= 2)
+                iterations.Add(new IterationResult { Index = 2, Xi = b, Fxi = fb, Error = null });
+
+            bool keepIterating = true;
+            int i = 3;
+
+            while (keepIterating)
+            {
+                // Instantly break the loop if the requested iterations are smaller than the current row index
+                if (UseIterationLimit && i > totalIteration)
+                    break;
+
+                double denominator = fb - fa;
+                if (Math.Abs(denominator) < 1e-15)
+                {
+                    stoppedByZeroDiv = true;
+                    break;
+                }
+
+                double xrRaw = (a * fb - b * fa) / denominator;
+                double xr = Normalize(xrRaw);
+                double fxr = Normalize(f(xr, out _));
+
+                double? ea = null;
+                if (UseErrorThreshold)
+                {
+                    if (Math.Abs(xr) > 1e-15)
+                    {
+                        double rawError = Math.Abs((xr - b) / xr) * 100;
+                        ea = Normalize(rawError);
+                    }
+                    else
+                        ea = 0;
+                }
+
+                iterations.Add(new IterationResult
+                {
+                    Index = i,
+                    Xi = xr,
+                    Fxi = fxr,
+                    Error = ea
+                });
+
+                bool rootFound = Math.Abs(fxr) < 1e-9;
+                bool stopByIter = UseIterationLimit && i >= totalIteration;
+                bool stopByError = UseErrorThreshold && errorThreshold.HasValue && ea.HasValue && ea <= errorThreshold.Value;
+
+                if (UseIterationLimit || UseErrorThreshold)
+                {
+                    if (stopByIter || stopByError)
+                        keepIterating = false;
+                }
+                else
+                {
+                    if (rootFound || i >= 1000) 
+                        keepIterating = false;
+                }
+
+                if (i >= 1000)
+                    keepIterating = false; 
+
+                a = b;
+                fa = fb;
+                b = xr;
+                fb = fxr;
+
+                i++;
+            }
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Check your formula format: {ex.Message}");
+        }
+    }
+
+    public class IterationResult
+    {
+        public int Index { get; set; }
+        public double Xi { get; set; }
+        public double Fxi { get; set; }
+        public double? Error { get; set; }
+    }
+}
