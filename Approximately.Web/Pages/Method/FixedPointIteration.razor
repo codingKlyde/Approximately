@@ -1,14 +1,13 @@
 ﻿@inject IToastService ToastService
 @page "/method/fixed-point-iteration"
 
-
 <Method Title="Fixed-Point Iteration">
     <LearnSection>
         <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
             <div class="flex items-start gap-4">
                 <div>
                     <p class="leading-relaxed text-gray-700">
-                        The Simple Fixed-Point Iteration method (also called one-point iteration or successive substitution) is an open method that works by rearranging the target function $f(x) = 0$ so that $x$ is isolated on the left-hand side, forming the equation $x = g(x)$. This provides a direct formula to predict a new value of $x$ as a function of the old value of $x$.
+                        The Simple Fixed-Point Iteration method (also called one-point iteration or successive substitution) is an open method that works by rearranging the target function f(x) = 0 so that x is isolated on the left-hand side, forming the equation x = g(x). This provides a direct formula to predict a new value of x as a function of the old value of x.
                     </p>
                 </div>
             </div>
@@ -20,11 +19,11 @@
                     Algorithm
                 </h3>
                 <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
-                    <li>Rearrange the function f(x) = 0 algebraically or by adding $x$ to both sides to form x = g(x).</li>
-                    <li>Choose an initial guess for the root, x_0.</li>
-                    <li>Compute a new estimate x_{i+1}$ using the iterative formula: <br/> x_{i+1} = g(x_i)</li>
-                    <li>Determine the approximate relative error using: <br/> \varepsilon_a = \left| \frac{x_{i+1} - x_i}{x_{i+1}} \right| 100\%</li>
-                    <li>Repeat the process, substituting the new $x_{i+1}$ back into $g(x)$, until the error $\varepsilon_a$ is minimal.</li>
+                    <li>First write the equation x = g(x).</li>
+                    <li>Choose an initial guess for the root, x0.</li>
+                    <li>Compute a new estimate using the iterative formula: x_new = g(x_old).</li>
+                    <li>Determine the difference between the new x and the old x.</li>
+                    <li>Repeat until the difference between the current step and previous step is approximately 0.</li>
                 </ol>
             </div>
 
@@ -40,7 +39,7 @@
                     <div class="h-px w-full bg-gray-100"></div>
                     <div>
                         <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
-                        <p class="text-sm text-gray-600">Highly unstable. It will only converge if the absolute value of the derivative of $g(x)$ is less than 1 ($|g'(x)| is less than 1$). If $|g'(x)| > 1$, the errors grow and the method diverges.</p>
+                        <p class="text-sm text-gray-600">Highly unstable. It will only converge if the absolute value of the derivative of g(x) is less than 1. If the slope is greater than 1, the errors grow and the method diverges.</p>
                     </div>
                 </div>
             </div>
@@ -53,8 +52,8 @@
                     <thead class="border-b border-gray-100 bg-gray-50/50">
                         <tr>
                             <th class="border-r border-gray-100 px-8 py-2 text-center">i</th>
-                            <th class="border-r border-gray-100 px-8 py-2 text-center">xi</th>
-                            <th class="px-8 py-2 text-center">g(xi)</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">x</th>
+                            <th class="px-8 py-2 text-center">g(x)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,7 +66,7 @@
                         {
                             <tr class="text-gray-400">
                                 <td class="border-r border-gray-100 px-8 py-2 text-center italic">@i</td>
-                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">Previous g(xi)</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">Previous g(x)</td>
                                 <td class="px-8 py-2 text-center italic">-</td>
                             </tr>
                         }
@@ -76,7 +75,6 @@
             </div>
         </div>
 
-        
         <div class="mt-8">
             <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
                 Real-World Applications
@@ -101,23 +99,21 @@
         </div>
 
         <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-            @* Fun Fact *@
             <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
                 <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
                     Fun Fact
                 </h3>
                 <p class="text-sm">
-                    If you plot the functions $y_1 = x$ and $y_2 = g(x)$ separately, the root represents the intersection of the two curves. The path the algorithm takes to get there forms visual patterns called "monotone" (staircase shapes) if $g'(x)$ is positive, or "oscillating" (spiral/cobweb shapes) if $g'(x)$ is negative!
+                    If you plot the functions y = x and y = g(x) separately, the root represents the intersection of the two curves. The path the algorithm takes to get there forms visual patterns called "monotone" (staircase shapes) if the slope is positive, or "oscillating" (spiral/cobweb shapes) if the slope is negative!
                 </p>
             </div>
 
-            @* Pro Tip *@
             <div class="rounded-xl border border-blue-100 bg-white p-6">
                 <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
                     Pro Tip
                 </h3>
                 <p class="text-sm text-gray-600">
-                    If your table numbers are rocketing toward infinity instead of settling down, your method is diverging. To fix it, you must algebraically rearrange $f(x) = 0$ into a completely different $x = g(x)$ format until you find one where the slope is relatively flat ($|g'(x)| is less than 1$).
+                    If your table numbers are rocketing toward infinity instead of settling down, your method is diverging. To fix it, you must algebraically rearrange f(x) = 0 into a completely different x = g(x) format until you find one where the slope is relatively flat (absolute value is less than 1).
                 </p>
             </div>
         </div>
@@ -129,8 +125,258 @@
             </ul>
         </div>
     </LearnSection>
-    
+
     <SolveSection>
-        @* To be implemented next *@
+        @* --- INPUT AREA --- *@
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+
+                @* Function Input *@
+                <div class="space-y-4">
+                    <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
+                        Rearranged Function <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute top-1/2 left-0 -translate-y-1/2 font-mono text-gray-400">g(x)=</span>
+                        <input @bind="functionInput" placeholder="e.g. (2-x^3)/2"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                    </div>
+                    <p class="text-[10px] text-gray-400">Supported: sin, cos, tan, log, exp, ^</p>
+                </div>
+
+                @* Initial Guess Input *@
+                <div class="space-y-4">
+                    <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
+                        Initial Guess <span class="text-red-400">*</span>
+                    </label>
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-gray-400">x₀ =</span>
+                        <input @bind="x0Input" type="number" placeholder="e.g. 0"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                    </div>
+                </div>
+
+                @* Settings *@
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" @bind="UseIterationLimit" id="iterCheck"
+                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                            <label for="iterCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Max Iterations</label>
+                        </div>
+                        <input @bind="totalIteration" type="number" disabled="@(!UseIterationLimit)"
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                    </div>
+                </div>
+            </div>
+
+            @* --- ACTION BUTTONS --- *@
+            <div class="mt-10 flex justify-end gap-4 border-t border-gray-100 pt-6">
+                <button @onclick="() => iterations.Clear()"
+                        class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
+                    CLEAR
+                </button>
+                <button @onclick="Calculate"
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                    CALCULATE
+                </button>
+            </div>
+        </div>
+
+        @* --- RESULTS AREA --- *@
+        @if (iterations.Any())
+        {
+            <div class="animate-fade-in-up mt-8">
+                <div class="mb-4 flex items-center gap-4 text-xs text-gray-500">
+                    <div class="rounded bg-gray-100 px-2 py-1 font-mono">g(x) = @firstGxFormula</div>
+                </div>
+
+                @{
+                    var last = iterations.Last();
+                    bool diverged = double.IsInfinity(last.Gxi) || double.IsNaN(last.Gxi) || Math.Abs(last.Gxi) > 1e10;
+                    bool exactRootFoundInTable = false;
+                }
+
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-center text-sm">
+                            <thead class="bg-gray-50 text-xs font-bold tracking-wider text-gray-500 uppercase">
+                                <tr>
+                                    <th class="px-6 py-4">Iter (i)</th>
+                                    <th class="px-6 py-4 text-blue-600">x</th>
+                                    <th class="px-6 py-4 font-bold text-gray-800">g(x)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach (var iter in iterations)
+                                {
+                                    // Match UI rounding: Stop if difference is less than 0.0001
+                                    bool isExactRoot = Math.Abs(iter.Gxi - iter.Xi) < 0.0001;
+                                    bool isLastRow = iter.Index == last.Index;
+
+                                    bool isHighlight = (isExactRoot && !exactRootFoundInTable) || (!exactRootFoundInTable && isLastRow && !diverged);
+
+                                    if (isExactRoot) exactRootFoundInTable = true;
+
+                                    <tr class="transition-colors hover:bg-blue-50/30 @(isHighlight ? "bg-blue-600 text-white hover:bg-blue-700" : "text-gray-600")">
+                                        <td class="px-6 py-3 font-mono">@iter.Index</td>
+                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.Xi.ToString("0.####")</td>
+                                        <td class="px-6 py-3 font-mono font-bold">@iter.Gxi.ToString("0.####")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @* Result Summary Footer *@
+                @if (diverged)
+                {
+                    <div class="mt-4 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+                        <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                        <span class="text-sm font-medium">
+                            Iteration stopped. The method is diverging rapidly. Ensure your target function is rearranged so that the derivative slope is less than 1 for your chosen starting point.
+                        </span>
+                    </div>
+                }
+                else if (!exactRootFoundInTable && UseIterationLimit)
+                {
+                    <div class="mt-4 flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+                        <span class="text-sm font-medium">Stopped due to iteration limit. The highlighted root is approximate.</span>
+                    </div>
+                }
+            </div>
+        }
     </SolveSection>
 </Method>
+
+@code {
+    private string functionInput = "";
+    private string firstGxFormula = "";
+    private double? x0Input;
+
+    private int totalIteration = 10;
+    private List<IterationResult> iterations = new();
+
+    private bool UseIterationLimit { get; set; } = true;
+
+    private double EvaluateG(double xValue, out string formulaDisplay)
+    {
+        try
+        {
+            string exprString = functionInput.ToLower()
+                .Replace("sin", "Sin")
+                .Replace("cos", "Cos")
+                .Replace("tan", "Tan")
+                .Replace("log", "Log10")
+                .Replace("ln", "Log")
+                .Replace("exp", "Exp");
+
+            // Fix implicit multiplication (e.g., 2x becomes 2*x)
+            exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"(\d)(x)", "$1*$2");
+            exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"(\d)(\()", "$1*$2");
+
+            // Fix exponent syntax
+            if (exprString.Contains("^"))
+                exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"([a-zA-Z0-9\.]+)\^([a-zA-Z0-9\.\-]+)", "Pow($1, $2)");
+
+            // Append .0 to standalone integers to prevent integer division zeroing out the formula
+            exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"(?<![a-zA-Z0-9_\.])(\d+)(?![a-zA-Z0-9_\.])", "$1.0");
+
+            var expression = new NCalc.Expression(exprString);
+            expression.Parameters["x"] = xValue;
+
+            string xStr = xValue.ToString("G6", System.Globalization.CultureInfo.InvariantCulture);
+            formulaDisplay = functionInput.Replace("x", $"({xStr})");
+
+            var result = expression.Evaluate();
+            return Convert.ToDouble(result);
+        }
+        catch
+        {
+            formulaDisplay = "Error";
+            return 0;
+        }
+    }
+
+    private void Calculate()
+    {
+        if (string.IsNullOrWhiteSpace(functionInput) || !x0Input.HasValue)
+        {
+            ToastService.ShowError("Please enter a function and an initial guess.");
+            return;
+        }
+
+        iterations.Clear();
+        double xCurr = x0Input.Value;
+
+        try
+        {
+            bool keepIterating = true;
+            int i = 1;
+
+            while (keepIterating)
+            {
+                if (UseIterationLimit && i > totalIteration)
+                {
+                    break;
+                }
+
+                // Calculate g(x)
+                double gCurr = EvaluateG(xCurr, out string fDisp);
+
+                if (i == 1) firstGxFormula = fDisp;
+
+                iterations.Add(new IterationResult
+                {
+                    Index = i,
+                    Xi = xCurr,
+                    Gxi = gCurr
+                });
+
+                // STOPPING LOGIC (Now matches 0.#### UI format)
+                double diff = Math.Abs(gCurr - xCurr);
+                bool rootFound = diff < 0.0001;
+
+                bool stopByIter = UseIterationLimit && i >= totalIteration;
+                bool isDiverging = double.IsInfinity(gCurr) || double.IsNaN(gCurr) || Math.Abs(gCurr) > 1e10;
+
+                if (isDiverging)
+                {
+                    keepIterating = false;
+                }
+                else if (UseIterationLimit && stopByIter)
+                {
+                    keepIterating = false;
+                }
+                else if (rootFound)
+                {
+                    keepIterating = false;
+                }
+                else if (!UseIterationLimit && i >= 1000)
+                {
+                    // Fallback limit for extremely slow functions
+                    keepIterating = false;
+                }
+
+                if (i >= 5000) keepIterating = false;
+
+                // Shift values for the next round
+                xCurr = gCurr;
+                i++;
+            }
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Check your formula format: {ex.Message}");
+        }
+    }
+
+    public class IterationResult
+    {
+        public int Index { get; set; }
+        public double Xi { get; set; }
+        public double Gxi { get; set; }
+    }
+}

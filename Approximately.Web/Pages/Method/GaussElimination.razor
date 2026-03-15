@@ -1,0 +1,440 @@
+﻿@inject IToastService ToastService
+@page "/method/gauss-elimination"
+
+<Method Title="Gauss Elimination">
+    <LearnSection>
+        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+            <div class="flex items-start gap-4">
+                <div>
+                    <p class="leading-relaxed text-gray-700">
+                        Gauss Elimination is a foundational "direct method" for solving systems of linear equations. Unlike previous methods that guess and iterate, this algorithm systematically manipulates the equations in two distinct phases: Forward Elimination and Back Substitution. The goal is to transform the complex system into a simple upper-triangular form where the answers easily cascade out.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Algorithm
+                </h3>
+                <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
+                    <li>Write the system of equations as an augmented matrix containing the coefficients and the right-hand side constants.</li>
+                    <li><strong>Forward Elimination:</strong> Systematically create zeros below the main diagonal.</li>
+                    <li>To eliminate a target element, subtract a multiple of the "pivot row" from the target row. The multiplier is the target element divided by the pivot element.</li>
+                    <li>Repeat this row-by-row and column-by-column until the matrix is in an upper triangular form.</li>
+                    <li><strong>Back Substitution:</strong> Start at the very bottom row, which now has only one unknown, and solve for it.</li>
+                    <li>Substitute that answer back into the row above it to solve for the next unknown, and repeat until you reach the top.</li>
+                </ol>
+            </div>
+
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Trade-offs
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-green-600 uppercase">Advantages</span>
+                        <p class="text-sm text-gray-600">It is a direct method, meaning it is guaranteed to find the exact mathematical solution in a finite, predictable number of steps without needing an initial guess.</p>
+                    </div>
+                    <div class="h-px w-full bg-gray-100"></div>
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
+                        <p class="text-sm text-gray-600">Highly susceptible to division by zero if a "pivot" element on the diagonal is zero. It also suffers from round-off errors that rapidly snowball when dealing with massive matrices (hundreds of equations).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-10 border-y border-gray-100 py-10">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">Matrix Structure (Forward Elimination Goal)</h3>
+            <div class="w-fit overflow-hidden rounded-sm border border-gray-100 bg-white">
+                <table class="border-collapse text-xs tracking-tighter text-gray-500">
+                    <thead class="border-b border-gray-100 bg-gray-50/50">
+                        <tr>
+                            <th class="border-r border-gray-100 px-8 py-3 text-center">Row</th>
+                            <th class="border-r border-gray-100 px-8 py-3 text-center">x<sub>1</sub></th>
+                            <th class="border-r border-gray-100 px-8 py-3 text-center">x<sub>2</sub></th>
+                            <th class="border-r border-gray-100 px-8 py-3 text-center">x<sub>3</sub></th>
+                            <th class="px-8 py-3 text-center">b (RHS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold">R1</td>
+                            <td class="border-r border-gray-100 bg-blue-50 px-8 py-3 text-center">a<sub>11</sub></td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center">a<sub>12</sub></td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center">a<sub>13</sub></td>
+                            <td class="px-8 py-3 text-center">b<sub>1</sub></td>
+                        </tr>
+                        <tr class="text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold">R2</td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold text-red-500">0</td>
+                            <td class="border-r border-gray-100 bg-blue-50 px-8 py-3 text-center">a<sub>22</sub></td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center">a<sub>23</sub></td>
+                            <td class="px-8 py-3 text-center">b<sub>2</sub></td>
+                        </tr>
+                        <tr class="text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold">R3</td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold text-red-500">0</td>
+                            <td class="border-r border-gray-100 px-8 py-3 text-center font-bold text-red-500">0</td>
+                            <td class="border-r border-gray-100 bg-blue-50 px-8 py-3 text-center">a<sub>33</sub></td>
+                            <td class="px-8 py-3 text-center">b<sub>3</sub></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 rounded-lg bg-gray-50 p-4">
+                <h4 class="mb-2 text-xs font-bold tracking-wider text-gray-700 uppercase">Notation Guide</h4>
+                <ul class="space-y-2 text-xs text-gray-600">
+                    <li><strong class="text-gray-800">a<sub>ij</sub> (Coefficients):</strong> The "a" values are the multipliers attached to your variables. The numbers tell you its grid position: <strong>a<sub>23</sub></strong> lives in Row 2, Column 3.</li>
+                    <li><strong class="text-gray-800">b (RHS):</strong> Stands for "Right-Hand Side". These are the constant numbers that sit by themselves on the right side of the equals sign.</li>
+                    <li><strong class="text-blue-600">Blue Diagonal:</strong> These are your "Pivot" elements. You will divide by these numbers to eliminate the rows below them.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                Real-World Applications
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-bridge"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Structural Analysis</h4>
+                    <p class="text-xs text-gray-500">Used by civil engineers to calculate the tension, compression, and load distribution across complex truss bridges.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-microchip"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Electrical Networks</h4>
+                    <p class="text-xs text-gray-500">Essential for determining unknown currents and voltages in circuit grids using Kirchhoff's laws and mesh analysis.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
+                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-faucet-drip"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Fluid & Pipe Flow</h4>
+                    <p class="text-xs text-gray-500">Calculates the steady-state flow rates and pressure drops across interconnected city water supply networks.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
+                <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
+                    Fun Fact
+                </h3>
+                <p class="text-sm">
+                    Although named after Carl Friedrich Gauss (who formalized it in the 1800s), this exact mathematical technique was actually discovered and documented by ancient Chinese mathematicians around 179 AD in the famous book "The Nine Chapters on the Mathematical Art"!
+                </p>
+            </div>
+
+            <div class="rounded-xl border border-blue-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+                    Pro Tip
+                </h3>
+                <p class="text-sm text-gray-600">
+                    Always look at your pivot element (the diagonal number you are dividing by). If that number is zero, the whole algorithm breaks! To fix this, simply swap that entire row with another row below it that has a non-zero number in that column. This is called "Partial Pivoting."
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 border-t border-gray-100 pt-6">
+            <h3 class="mb-4 font-bold tracking-widest text-[10px] text-gray-400 uppercase">References</h3>
+            <ul class="space-y-2 text-xs text-gray-500">
+                <li>Chapra, S. C., & Canale, R. P. (2015). <em>Numerical Methods for Engineers</em> (7th ed.). McGraw-Hill Education.</li>
+            </ul>
+        </div>
+    </LearnSection>
+
+<SolveSection>
+        @* --- INPUT AREA --- *@
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div class="mb-6 flex items-center justify-between">
+                <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
+                    System of Equations (3x3) <span class="text-red-400">*</span>
+                </label>
+                <button @onclick="LoadExample" class="font-bold tracking-wider text-[10px] text-blue-600 uppercase hover:underline">
+                    Load Slide Example
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <div class="grid min-w-[600px] grid-cols-4 gap-4">
+                    @* Headers *@
+                    <div class="text-center text-xs font-bold tracking-wider text-gray-400 uppercase">x1</div>
+                    <div class="text-center text-xs font-bold tracking-wider text-gray-400 uppercase">x2</div>
+                    <div class="text-center text-xs font-bold tracking-wider text-gray-400 uppercase">x3</div>
+                    <div class="border-l border-gray-200 pl-4 text-center text-xs font-bold tracking-wider text-gray-800 uppercase">b (RHS)</div>
+
+                    @* Row 1 *@
+                    <input @bind="a11" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a12" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a13" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <div class="border-l border-gray-200 pl-4">
+                        <input @bind="b1" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    </div>
+
+                    @* Row 2 *@
+                    <input @bind="a21" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a22" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a23" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <div class="border-l border-gray-200 pl-4">
+                        <input @bind="b2" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    </div>
+
+                    @* Row 3 *@
+                    <input @bind="a31" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a32" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a33" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <div class="border-l border-gray-200 pl-4">
+                        <input @bind="b3" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    </div>
+                </div>
+            </div>
+
+            @* --- ACTION BUTTONS --- *@
+            <div class="mt-10 flex justify-end gap-4 border-t border-gray-100 pt-6">
+                <button @onclick="ClearInputs" 
+                        class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
+                    CLEAR
+                </button>
+                <button @onclick="Calculate" 
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                    CALCULATE
+                </button>
+            </div>
+        </div>
+
+        @* --- RESULTS AREA --- *@
+        @if (isCalculated)
+        {
+            <div class="animate-fade-in-up mt-8 space-y-8">
+                
+                @if (divisionByZeroError)
+                {
+                    <div class="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+                        <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                        <span class="text-sm font-medium">
+                            Calculation failed: Division by zero encountered. A pivot element became zero during elimination.
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    @* Step-by-Step Matrices *@
+                    <div class="space-y-6">
+                        <h3 class="text-xs font-bold tracking-widest text-gray-500 uppercase">Forward Elimination Steps</h3>
+                        
+                        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                            @foreach (var step in eliminationSteps)
+                            {
+                                <div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                                    <div class="mb-4 flex flex-col gap-1">
+                                        <h4 class="text-xs font-bold text-gray-800 uppercase">@step.Title</h4>
+                                        <span class="w-fit rounded bg-blue-50 px-2 py-1 font-mono font-bold text-[11px] text-blue-700">
+                                            @step.Operation
+                                        </span>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-2 font-mono text-sm">
+                                        @for (int r = 0; r < 3; r++)
+                                        {
+                                            @for (int c = 0; c < 4; c++)
+                                            {
+                                                bool isZero = Math.Abs(step.Matrix[r, c]) < 1e-9;
+                                                bool isRHS = c == 3;
+                                                <div class="rounded px-2 py-1 text-center @(isZero ? "text-gray-300" : "text-gray-700") @(isRHS ? "border-l border-gray-100 font-bold" : "")">
+                                                    @(isZero ? "0" : step.Matrix[r, c].ToString("0.####"))
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @* <div class="rounded-xl border border-green-200 bg-green-50 p-6 shadow-sm">
+                        <h3 class="mb-4 text-xs font-bold tracking-widest text-green-800 uppercase">Back Substitution Process</h3>
+                        <div class="flex flex-col gap-4">
+                            
+                            <div class="rounded-lg border border-gray-100 bg-white p-5 shadow-sm">
+                                <div class="mb-2 font-bold tracking-widest text-[10px] text-gray-400 uppercase">Step 1: Solve for Bottom Row</div>
+                                <div class="flex flex-wrap items-center justify-between gap-4 font-mono text-sm">
+                                    <div class="text-gray-600">x3 = @x3Formula</div>
+                                    <div class="rounded bg-green-100 px-3 py-1 font-bold text-green-800">x3 = @x3Result.ToString("0.####")</div>
+                                </div>
+                            </div>
+
+                            <div class="rounded-lg border border-gray-100 bg-white p-5 shadow-sm">
+                                <div class="mb-2 font-bold tracking-widest text-[10px] text-gray-400 uppercase">Step 2: Substitute x3 into Middle Row</div>
+                                <div class="flex flex-wrap items-center justify-between gap-4 font-mono text-sm">
+                                    <div class="text-gray-600">x2 = @x2Formula</div>
+                                    <div class="rounded bg-green-100 px-3 py-1 font-bold text-green-800">x2 = @x2Result.ToString("0.####")</div>
+                                </div>
+                            </div>
+
+                            <div class="rounded-lg border border-gray-100 bg-white p-5 shadow-sm">
+                                <div class="mb-2 font-bold tracking-widest text-[10px] text-gray-400 uppercase">Step 3: Substitute x2 and x3 into Top Row</div>
+                                <div class="flex flex-wrap items-center justify-between gap-4 font-mono text-sm">
+                                    <div class="text-gray-600">x1 = @x1Formula</div>
+                                    <div class="rounded bg-green-100 px-3 py-1 font-bold text-green-800">x1 = @x1Result.ToString("0.####")</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    *@
+                }
+            </div>
+        }
+    </SolveSection>
+</Method>
+
+@code {
+    // Inputs
+    private double? a11, a12, a13, b1;
+    private double? a21, a22, a23, b2;
+    private double? a31, a32, a33, b3;
+
+    // State
+    private bool isCalculated = false;
+    private bool divisionByZeroError = false;
+    private List<MatrixStep> eliminationSteps = new();
+    
+    // Results & Formulas
+    private double x1Result, x2Result, x3Result;
+    private string x1Formula, x2Formula, x3Formula;
+
+    protected override void OnInitialized()
+    {
+        ClearInputs();
+    }
+
+    private void LoadExample()
+    {
+        a11 = 3; a12 = -0.1; a13 = -0.2; b1 = 7.85;
+        a21 = 0.1; a22 = 7; a23 = -0.3; b2 = -19.3;
+        a31 = 0.3; a32 = -0.2; a33 = 10; b3 = 71.4;
+        
+        isCalculated = false;
+        ToastService.ShowSuccess("Slide example loaded!");
+    }
+
+    private void ClearInputs()
+    {
+        a11 = null; a12 = null; a13 = null; b1 = null;
+        a21 = null; a22 = null; a23 = null; b2 = null;
+        a31 = null; a32 = null; a33 = null; b3 = null;
+        
+        isCalculated = false;
+        eliminationSteps.Clear();
+    }
+
+    private void Calculate()
+    {
+        if (a11 == null || a12 == null || a13 == null || b1 == null ||
+            a21 == null || a22 == null || a23 == null || b2 == null ||
+            a31 == null || a32 == null || a33 == null || b3 == null)
+        {
+            ToastService.ShowError("Please fill in all coefficients and RHS constants.");
+            return;
+        }
+
+        isCalculated = true;
+        divisionByZeroError = false;
+        eliminationSteps.Clear();
+
+        double[,] M = new double[3, 4]
+        {
+            { a11.Value, a12.Value, a13.Value, b1.Value },
+            { a21.Value, a22.Value, a23.Value, b2.Value },
+            { a31.Value, a32.Value, a33.Value, b3.Value }
+        };
+
+        eliminationSteps.Add(new MatrixStep("Initial Matrix", "Starting System", CloneMatrix(M)));
+
+        try
+        {
+            // --- FORWARD ELIMINATION ---
+
+            // Step 1: Eliminate Row 2, Column 1
+            if (Math.Abs(M[0, 0]) < 1e-15) throw new DivideByZeroException();
+            
+            // Build formula string BEFORE changing the matrix
+            string op1 = $"R2 = R2 - ({M[1, 0]:0.####} / {M[0, 0]:0.####}) * R1";
+            double factor21 = M[1, 0] / M[0, 0];
+            
+            for (int col = 0; col < 4; col++)
+            {
+                M[1, col] = M[1, col] - (factor21 * M[0, col]);
+            }
+            eliminationSteps.Add(new MatrixStep("Step 1: Eliminate R2 (Col 1)", op1, CloneMatrix(M)));
+
+            // Step 2: Eliminate Row 3, Column 1
+            string op2 = $"R3 = R3 - ({M[2, 0]:0.####} / {M[0, 0]:0.####}) * R1";
+            double factor31 = M[2, 0] / M[0, 0];
+            
+            for (int col = 0; col < 4; col++)
+            {
+                M[2, col] = M[2, col] - (factor31 * M[0, col]);
+            }
+            eliminationSteps.Add(new MatrixStep("Step 2: Eliminate R3 (Col 1)", op2, CloneMatrix(M)));
+
+            // Step 3: Eliminate Row 3, Column 2
+            if (Math.Abs(M[1, 1]) < 1e-15) throw new DivideByZeroException();
+            
+            string op3 = $"R3 = R3 - ({M[2, 1]:0.####} / {M[1, 1]:0.####}) * R2";
+            double factor32 = M[2, 1] / M[1, 1];
+            
+            for (int col = 0; col < 4; col++)
+            {
+                M[2, col] = M[2, col] - (factor32 * M[1, col]);
+            }
+            eliminationSteps.Add(new MatrixStep("Step 3: Eliminate R3 (Col 2)", op3, CloneMatrix(M)));
+
+            // --- BACK SUBSTITUTION ---
+            if (Math.Abs(M[2, 2]) < 1e-15) throw new DivideByZeroException();
+
+            // x3 Calculation
+            x3Result = M[2, 3] / M[2, 2];
+            x3Formula = $"{M[2, 3]:0.####} / {M[2, 2]:0.####}";
+
+            // x2 Calculation
+            x2Result = (M[1, 3] - (M[1, 2] * x3Result)) / M[1, 1];
+            x2Formula = $"[{M[1, 3]:0.####} - ({M[1, 2]:0.####} * {x3Result:0.####})] / {M[1, 1]:0.####}";
+
+            // x1 Calculation
+            x1Result = (M[0, 3] - (M[0, 1] * x2Result) - (M[0, 2] * x3Result)) / M[0, 0];
+            x1Formula = $"[{M[0, 3]:0.####} - ({M[0, 1]:0.####} * {x2Result:0.####}) - ({M[0, 2]:0.####} * {x3Result:0.####})] / {M[0, 0]:0.####}";
+
+        }
+        catch (DivideByZeroException)
+        {
+            divisionByZeroError = true;
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"An unexpected error occurred: {ex.Message}");
+        }
+    }
+
+    private double[,] CloneMatrix(double[,] source)
+    {
+        double[,] copy = new double[3, 4];
+        Array.Copy(source, copy, source.Length);
+        return copy;
+    }
+
+    public class MatrixStep
+    {
+        public string Title { get; set; }
+        public string Operation { get; set; }
+        public double[,] Matrix { get; set; }
+
+        public MatrixStep(string title, string operation, double[,] matrix)
+        {
+            Title = title;
+            Operation = operation;
+            Matrix = matrix;
+        }
+    }
+}

@@ -2,31 +2,40 @@
 @inject NavigationManager NavManager
 
 
-<div class="flex min-h-screen flex-col bg-gray-50/30">
-    <section class="relative overflow-hidden border-b border-gray-100 bg-white pt-24 pb-16">
-        <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] opacity-20 [background-size:16px_16px]"></div>
-        <div class="relative mx-auto max-w-4xl px-6 text-center">
-            <div class="mb-6 inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">
-                <span class="mr-2 flex h-2 w-2 rounded-full bg-blue-600"></span>
-                v0.1 Alpha Build
+<div class="flex min-h-screen flex-col bg-slate-50/50 font-sans selection:bg-blue-200">
+    @* --- HERO SECTION --- *@
+    <section class="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden border-b border-gray-200 bg-white px-6 py-20 shadow-sm">
+        @* Background Pattern - Thicker, more visible dots *@
+        <div class="absolute inset-0 bg-[radial-gradient(#94a3b8_1.5px,transparent_1.5px)] opacity-40 [background-size:20px_20px]"></div>
+        
+        <div class="relative mx-auto max-w-4xl text-center">
+            <div class="mb-8 inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-700 uppercase shadow-sm">
+                <span class="mr-2 flex h-2 w-2 animate-pulse rounded-full bg-blue-600"></span>
+                v0.2 Alpha Build
             </div>
 
             <h1 class="mb-6 text-6xl font-black tracking-tight text-gray-900 md:text-8xl">
-                Approximately<span class="text-blue-600">.</span>
+                <span class="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">Approximately</span><span class="text-blue-600">.</span>
             </h1>
 
-            <p class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-gray-500">
-                Visualize, analyze, and solve complex equations with ease
-            </p>
+            <div class="mb-12 flex justify-center gap-4">
+                <a href="#solvers" class="rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-bold tracking-widest text-white no-underline shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:no-underline hover:shadow-xl hover:shadow-blue-600/40">
+                    EXPLORE METHODS
+                </a>
+                <a href="https://github.com" target="_blank" class="rounded-xl border border-gray-200 bg-white px-8 py-3.5 text-sm font-bold tracking-widest text-gray-700 no-underline shadow-sm transition-all hover:-translate-y-0.5 hover:bg-gray-50 hover:no-underline hover:shadow-md">
+                    <i class="fa-brands fa-github mr-2"></i> SOURCE
+                </a>
+            </div>
 
-            <div class="mx-auto max-w-2xl rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 shadow-sm">
-                <div class="flex items-start justify-center gap-3">
-                    <i class="fa-solid fa-triangle-exclamation mt-0.5 text-amber-600"></i>
+            <div class="mx-auto max-w-2xl rounded-xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900 shadow-sm transition-all hover:shadow-md">
+                <div class="flex items-start justify-center gap-4">
+                    <div class="rounded-full bg-amber-100 p-2 text-amber-600">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
                     <div class="text-left">
-                        <p class="font-bold">Experimental Release</p>
-                        <p class="mt-1 leading-relaxed text-amber-800 opacity-90">
-                            This is an early testing version. Algorithms may yield <strong>wrong or inaccurate results</strong> in edge cases.
-                            Please double-check all answers manually or compare with established tools.
+                        <p class="font-bold tracking-wider text-amber-800 text-[11px] uppercase">Experimental Release</p>
+                        <p class="mt-1 leading-relaxed text-amber-700 opacity-90">
+                            This is an early testing version. Algorithms may yield wrong or inaccurate results in extreme edge cases. Please manually verify outputs or compare with established tools.
                         </p>
                     </div>
                 </div>
@@ -34,33 +43,38 @@
         </div>
     </section>
 
-    <div class="mx-auto w-full max-w-7xl flex-grow px-6 py-16">
+    @* --- METHODS GRID --- *@
+    <div id="solvers" class="mx-auto w-full max-w-7xl flex-grow px-6 py-24">
+        
         @* Category: Roots of Equations *@
-        <div class="mb-16">
-            <div class="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
-                <h2 class="text-lg font-bold tracking-tight text-gray-900 uppercase">Roots of Equations</h2>
-                <span class="text-xs font-bold text-gray-400">@RootMethods.Count Methods</span>
+        <div class="mb-20">
+            <div class="mb-8 flex items-end justify-between border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight text-gray-900">Roots of Equations</h2>
+                    <p class="mt-1 text-sm text-gray-500">Find where functions cross the x-axis using bracketing and open methods.</p>
+                </div>
+                <span class="hidden rounded-lg bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 md:inline-block">@RootMethods.Count Solvers</span>
             </div>
+            
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach (var method in RootMethods)
                 {
                     <div @onclick='() => NavManager.NavigateTo(method.Url)'
-                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-100 hover:shadow-xl">
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5">
 
-                        <div class="mb-4 flex items-start justify-between">
-                            <div class="rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600">
+                        <div class="mb-6 flex items-start justify-between">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-blue-50 group-hover:text-blue-600">
                                 <i class="@method.IconClass fa-lg"></i>
                             </div>
-                            <span class="rounded-full border border-gray-100 px-2 py-1 font-bold tracking-wide text-[10px] text-gray-500 uppercase @GetBadgeColor(method.Tag)">
+                            <span class="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 font-bold tracking-widest text-[10px] text-blue-600 uppercase">
                                 @method.Tag
                             </span>
                         </div>
 
-                        <h3 class="mb-2 text-lg font-bold text-gray-900">@method.Title</h3>
-                        <p class="mb-6 text-sm leading-relaxed text-gray-500">@method.Description</p>
+                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-blue-600">@method.Title</h3>
 
-                        <div class="mt-auto flex items-center text-xs font-bold text-gray-900 opacity-0 transition-opacity group-hover:opacity-100">
-                            Launch Solver <i class="fa-solid fa-arrow-right ml-2"></i>
+                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-blue-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
+                            Launch Solver <i class="fa-solid fa-arrow-right ml-2 -translate-x-2 transition-transform duration-300 group-hover:translate-x-0"></i>
                         </div>
                     </div>
                 }
@@ -68,31 +82,34 @@
         </div>
 
         @* Category: Linear Algebra *@
-        <div class="mb-16">
-            <div class="mb-6 flex items-center justify-between border-b border-gray-100 pb-2">
-                <h2 class="text-lg font-bold tracking-tight text-gray-900 uppercase">Linear Algebra</h2>
-                <span class="text-xs font-bold text-gray-400">@LinearMethods.Count Methods</span>
+        <div class="mb-12">
+            <div class="mb-8 flex items-end justify-between border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight text-gray-900">Linear Algebra</h2>
+                    <p class="mt-1 text-sm text-gray-500">Solve complex systems of linear equations via direct matrices and iterative loops.</p>
+                </div>
+                <span class="hidden rounded-lg bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 md:inline-block">@LinearMethods.Count Solvers</span>
             </div>
+            
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 @foreach (var method in LinearMethods)
                 {
                     <div @onclick='() => NavManager.NavigateTo(method.Url)'
-                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-purple-100 hover:shadow-xl">
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5">
 
-                        <div class="mb-4 flex items-start justify-between">
-                            <div class="rounded-lg bg-gray-50 p-3 transition-colors group-hover:bg-purple-50 group-hover:text-purple-600">
+                        <div class="mb-6 flex items-start justify-between">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-blue-50 group-hover:text-blue-600">
                                 <i class="@method.IconClass fa-lg"></i>
                             </div>
-                            <span class="rounded-full border border-gray-100 px-2 py-1 font-bold tracking-wide text-[10px] text-gray-500 uppercase @GetBadgeColor(method.Tag)">
+                            <span class="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 font-bold tracking-widest text-[10px] text-blue-600 uppercase">
                                 @method.Tag
                             </span>
                         </div>
 
-                        <h3 class="mb-2 text-lg font-bold text-gray-900">@method.Title</h3>
-                        <p class="mb-6 text-sm leading-relaxed text-gray-500">@method.Description</p>
+                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-blue-600">@method.Title</h3>
 
-                        <div class="mt-auto flex items-center text-xs font-bold text-gray-900 opacity-0 transition-opacity group-hover:opacity-100">
-                            Launch Solver <i class="fa-solid fa-arrow-right ml-2"></i>
+                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-blue-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
+                            Launch Solver <i class="fa-solid fa-arrow-right ml-2 -translate-x-2 transition-transform duration-300 group-hover:translate-x-0"></i>
                         </div>
                     </div>
                 }
@@ -102,24 +119,24 @@
     </div>
 
     @* --- MISSION & VISION --- *@
-    <section class="border-t border-gray-100 bg-white py-20">
+    <section class="border-t border-gray-200 bg-white py-24">
         <div class="mx-auto max-w-6xl px-6">
             <div class="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <div class="space-y-6">
-                    <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                        <i class="fa-solid fa-rocket fa-xl"></i>
+                <div class="rounded-3xl bg-blue-50/50 p-8 transition-colors hover:bg-blue-50">
+                    <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 shadow-inner">
+                        <i class="fa-solid fa-graduation-cap fa-xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Our Mission</h3>
+                    <h3 class="mb-4 text-2xl font-black text-gray-900">Our Mission</h3>
                     <p class="leading-relaxed text-gray-600">
-                        To democratize access to powerful numerical analysis tools. We aim to replace heavy, expensive software with lightweight, accessible, and transparent web-based solutions that empower students and engineers to solve complex problems instantly.
+                        To help students effectively learn, understand, and truly appreciate the power of numerical methods. We aim to provide an interactive platform that bridges the gap between abstract mathematical formulas and practical problem-solving.
                     </p>
                 </div>
 
-                <div class="space-y-6">
-                    <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
-                        <i class="fa-regular fa-eye fa-xl"></i>
+                <div class="rounded-3xl bg-blue-50/50 p-8 transition-colors hover:bg-blue-50">
+                    <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 shadow-inner">
+                        <i class="fa-solid fa-eye fa-xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900">Our Vision</h3>
+                    <h3 class="mb-4 text-2xl font-black text-gray-900">Our Vision</h3>
                     <p class="leading-relaxed text-gray-600">
                         We envision a future where computational mathematics is intuitive and interactive. By removing the barrier of complex syntax and setup, we strive to be the standard open-source reference for learning and applying numerical methods globally.
                     </p>
@@ -129,50 +146,53 @@
     </section>
 
     @* --- PROPER FOOTER --- *@
-    <footer class="border-t border-gray-200 bg-gray-50 pt-16 pb-8">
+    <footer class="border-t border-gray-200 bg-slate-900 pt-16 pb-8 text-gray-300">
         <div class="mx-auto max-w-7xl px-6">
-            <div class="grid grid-cols-1 gap-12 border-b border-gray-200 pb-12 md:grid-cols-4">
+            <div class="grid grid-cols-1 gap-12 border-b border-slate-800 pb-12 md:grid-cols-4">
 
                 @* Brand Column *@
                 <div class="md:col-span-2">
-                    <h4 class="mb-4 text-xl font-black tracking-tight text-gray-900">Approximately.</h4>
-                    <p class="max-w-xs text-sm leading-relaxed text-gray-500">
+                    <h4 class="mb-4 text-2xl font-black tracking-tight text-white">Approximately.</h4>
+                    <p class="max-w-sm text-sm leading-relaxed text-slate-400">
                         An open-source educational suite built for the modern web.
                         Solving the world's equations, one iteration at a time.
                     </p>
-                    <div class="mt-6 flex gap-4 text-gray-400">
-                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-twitter fa-lg"></i></a>
-                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-github fa-lg"></i></a>
-                        <a href="#" class="transition-colors hover:text-black"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <div class="mt-8 flex gap-5">
+                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-github fa-lg"></i></a>
+                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-linkedin fa-lg"></i></a>
                     </div>
                 </div>
 
                 @* Quick Access *@
                 <div>
-                    <h5 class="mb-6 text-sm font-bold tracking-widest text-gray-900 uppercase">Quick Access</h5>
-                    <ul class="space-y-4 text-sm text-gray-600">
-                        <li><a href="/" class="hover:text-blue-600 hover:underline">Home</a></li>
-                        <li><a href="/method/bisection" class="hover:text-blue-600 hover:underline">Bisection Solver</a></li>
-                        <li><a href="/method/newton-raphson" class="hover:text-blue-600 hover:underline">Newton-Raphson</a></li>
-                        <li><a href="/method/gauss-elimination" class="hover:text-blue-600 hover:underline">Matrix Solver</a></li>
+                    <h5 class="mb-6 text-xs font-bold tracking-widest text-slate-100 uppercase">Quick Access</h5>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="/" class="transition-colors hover:text-blue-400 hover:underline">Home</a></li>
+                        <li><a href="/method/bisection" class="transition-colors hover:text-blue-400 hover:underline">Bisection Solver</a></li>
+                        <li><a href="/method/newton-raphson" class="transition-colors hover:text-blue-400 hover:underline">Newton-Raphson</a></li>
+                        <li><a href="/method/gauss-elimination" class="transition-colors hover:text-blue-400 hover:underline">Matrix Solver</a></li>
                     </ul>
                 </div>
 
                 @* Legal / Links *@
                 <div>
-                    <h5 class="mb-6 text-sm font-bold tracking-widest text-gray-900 uppercase">Resources</h5>
-                    <ul class="space-y-4 text-sm text-gray-600">
-                        <li><a href="#" class="hover:text-blue-600 hover:underline">Documentation</a></li>
-                        <li><a href="#" class="hover:text-blue-600 hover:underline">Report an Issue</a></li>
-                        <li><a href="#" class="hover:text-blue-600 hover:underline">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-blue-600 hover:underline">Terms of Use</a></li>
+                    <h5 class="mb-6 text-xs font-bold tracking-widest text-slate-100 uppercase">Resources</h5>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Documentation</a></li>
+                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Report an Issue</a></li>
+                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Privacy Policy</a></li>
+                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Terms of Use</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="pt-8 text-center">
-                <p class="text-xs text-gray-400">
-                    &copy; @DateTime.Now.Year Approximately. Built Blazor with ❤️ by a passionate team of developers. All rights reserved.
+            <div class="flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
+                <p class="text-xs text-slate-500">
+                    &copy; @DateTime.Now.Year Approximately. All rights reserved.
+                </p>
+                <p class="text-xs text-slate-500">
+                    Built with <span class="font-bold text-blue-400">Blazor</span> and <i class="fa-solid fa-heart mx-1 text-red-500"></i>
                 </p>
             </div>
         </div>
@@ -183,7 +203,6 @@
     class MethodCard
     {
         public string Title { get; set; } = "";
-        public string Description { get; set; } = "";
         public string Url { get; set; } = "";
         public string Tag { get; set; } = "";
         public string IconClass { get; set; } = "fa-solid fa-calculator";
@@ -194,35 +213,30 @@
     {
         new MethodCard {
             Title = "Bisection Method",
-            Description = "Robust bracketing method that divides an interval in half.",
             Url = "/method/bisection",
             Tag = "Bracketing",
             IconClass = "fa-solid fa-scissors"
         },
         new MethodCard {
             Title = "False-Position",
-            Description = "Linear interpolation inside a bracket for faster convergence.",
             Url = "/method/false-position",
             Tag = "Bracketing",
             IconClass = "fa-solid fa-chart-line"
         },
         new MethodCard {
             Title = "Secant Method",
-            Description = "Uses a difference quotient to approximate the derivative.",
             Url = "/method/secant",
             Tag = "Open Method",
             IconClass = "fa-solid fa-slash"
         },
         new MethodCard {
             Title = "Fixed Point Iteration",
-            Description = "Simple open method rearranging the function to x = g(x).",
             Url = "/method/fixed-point-iteration",
             Tag = "Open Method",
             IconClass = "fa-solid fa-arrows-rotate"
         },
         new MethodCard {
             Title = "Newton-Raphson",
-            Description = "Uses the derivative f'(x) for quadratic convergence.",
             Url = "/method/newton-raphson",
             Tag = "Open Method",
             IconClass = "fa-solid fa-bolt"
@@ -234,36 +248,21 @@
     {
         new MethodCard {
             Title = "Gauss Elimination",
-            Description = "Direct algorithm for systems of linear equations.",
             Url = "/method/gauss-elimination",
             Tag = "Direct",
             IconClass = "fa-solid fa-table-cells"
         },
         new MethodCard {
             Title = "Gauss-Seidel",
-            Description = "Iterative method for diagonally dominant systems.",
             Url = "/method/gauss-seidel",
             Tag = "Iterative",
             IconClass = "fa-solid fa-arrow-down-up-across-line"
         },
         new MethodCard {
             Title = "Gauss-Jacobi",
-            Description = "Simultaneous update iterative algorithm.",
             Url = "/method/gauss-jacobi",
             Tag = "Iterative",
             IconClass = "fa-solid fa-layer-group"
         }
     };
-
-    private string GetBadgeColor(string tag)
-    {
-        return tag switch
-        {
-            "Bracketing" => "bg-orange-50 text-orange-600 border-orange-100",
-            "Open Method" => "bg-blue-50 text-blue-600 border-blue-100",
-            "Direct" => "bg-purple-50 text-purple-600 border-purple-100",
-            "Iterative" => "bg-green-50 text-green-600 border-green-100",
-            _ => "bg-gray-50 text-gray-600"
-        };
-    }
 }
