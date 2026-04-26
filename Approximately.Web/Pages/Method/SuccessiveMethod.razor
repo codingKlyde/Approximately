@@ -1,0 +1,338 @@
+﻿@page "/method/sor"
+
+<Method Title="Successive Over-Relaxation (SOR)">
+    <LearnSection>
+        <div class="mb-8 rounded-xl border border-red-100 bg-red-50/50 p-6">
+            <div class="flex items-start gap-4">
+                <div>
+                    <p class="leading-relaxed text-gray-700">
+                        The Successive Over-Relaxation (SOR) method is a turbocharged version of the Gauss-Seidel method. It is an iterative technique used to solve systems of linear equations. By introducing a relaxation factor, <span class="font-bold italic">w</span> (omega), SOR extrapolates the next guess to artificially accelerate the convergence, helping you reach the true answer much faster than standard methods!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Algorithm
+                </h3>
+                <ol class="list-decimal space-y-3 pl-4 text-sm text-gray-600">
+                    <li>Rearrange the system into Gauss-Seidel form (solve each equation for a different variable).</li>
+                    <li>Choose an initial guess (usually zeros) and a relaxation parameter <strong>w</strong> (typically between 1 and 2).</li>
+                    <li>For each variable, calculate the standard Gauss-Seidel estimate using the <em>most recently</em> updated values of the other variables.</li>
+                    <li>Apply the relaxation formula: <br /><span class="rounded bg-gray-50 p-1 font-mono text-xs">V_new = (1 - w) * V_old + w * (Gauss-Seidel estimate)</span></li>
+                    <li>Repeat the process for all variables to complete one iteration.</li>
+                    <li>Continue iterating until the answers stabilize and the error falls below your target limit.</li>
+                </ol>
+            </div>
+
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">
+                    Trade-offs
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-green-600 uppercase">Advantages</span>
+                        <p class="text-sm text-gray-600">Significantly faster convergence than standard Jacobi or Gauss-Seidel methods. Very memory-efficient for solving massive systems with thousands of variables.</p>
+                    </div>
+                    <div class="h-px w-full bg-gray-100"></div>
+                    <div>
+                        <span class="mb-1 block text-xs font-bold text-red-500 uppercase">Disadvantages</span>
+                        <p class="text-sm text-gray-600">Requires finding the optimal <strong>w</strong> parameter, which can be difficult to predict. It is also only guaranteed to converge for certain types of matrices (like strictly diagonally dominant ones).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-10 border-y border-gray-100 py-10">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-900 uppercase">Iteration Tracking Format (w = 1.25)</h3>
+            <div class="w-fit overflow-hidden rounded-sm border border-gray-100 bg-white">
+                <table class="border-collapse tracking-tighter text-[10px] text-gray-500">
+                    <thead class="border-b border-gray-100 bg-gray-50/50">
+                        <tr>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">Iteration</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">x</th>
+                            <th class="border-r border-gray-100 px-8 py-2 text-center">y</th>
+                            <th class="px-8 py-2 text-center">z</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">0</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">0</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">0</td>
+                            <td class="px-8 py-2 text-center font-mono">0</td>
+                        </tr>
+                        <tr class="bg-gray-50/30 text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">1</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">-0.41667</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">2.743056</td>
+                            <td class="px-8 py-2 text-center font-mono">-1.60012</td>
+                        </tr>
+                        <tr class="text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">2</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">1.497155</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">2.188002</td>
+                            <td class="px-8 py-2 text-center font-mono">-2.22878</td>
+                        </tr>
+                        <tr class="bg-gray-50/30 text-gray-600">
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">3</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">1.049373</td>
+                            <td class="border-r border-gray-100 px-8 py-2 text-center font-mono">1.878244</td>
+                            <td class="px-8 py-2 text-center font-mono">-2.01411</td>
+                        </tr>
+                        @for (int i = 0; i < 2; i++)
+                        {
+                            <tr class="text-gray-400">
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">-</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">-</td>
+                                <td class="border-r border-gray-100 px-8 py-2 text-center italic">-</td>
+                                <td class="px-8 py-2 text-center italic">-</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">
+                Real-World Applications
+            </h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-wind"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Fluid Dynamics</h4>
+                    <p class="text-xs text-gray-500">Used extensively in Computational Fluid Dynamics (CFD) to solve the massive Navier-Stokes equations governing airflow and water currents.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-bolt"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Power Grids</h4>
+                    <p class="text-xs text-gray-500">Solving load flow analysis equations to ensure stable electricity distribution across vast power networks.</p>
+                </div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-cube"></i></div>
+                    <h4 class="mb-1 text-sm font-bold text-gray-900">Finite Element Analysis</h4>
+                    <p class="text-xs text-gray-500">Calculating stress, strain, and deformation in complex 3D models during mechanical engineering simulations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-xl bg-amber-50 p-6 text-amber-900">
+                <h3 class="mb-2 text-xs font-bold tracking-widest uppercase opacity-70">
+                    Fun Fact
+                </h3>
+                <p class="text-sm">
+                    The <strong>w</strong> parameter is the magic wand. If you set <strong>w = 1</strong>, the equation perfectly reverts to the standard Gauss-Seidel method. If you set <strong>w &lt; 1</strong> (Under-Relaxation), it acts like a brake, helping mathematically chaotic systems gently settle down without violently oscillating!
+                </p>
+            </div>
+
+            <div class="rounded-xl border border-red-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase">
+                    Pro Tip
+                </h3>
+                <p class="text-sm text-gray-600">
+                    The secret to writing the code for SOR is to update your variables <strong>immediately</strong>. When calculating <em>y</em> in an iteration, do not use the <em>x</em> value from the previous iteration—use the brand new <em>x</em> value you calculated just one line of code above it!
+                </p>
+            </div>
+        </div>
+    </LearnSection>
+
+    <SolveSection>
+        <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            
+            <div class="mb-8 border-b border-gray-100 pb-6">
+                <h3 class="mb-4 text-xs font-bold tracking-widest text-gray-500 uppercase">System of Equations (3x3 Matrix)</h3>
+                
+                <div class="grid max-w-2xl grid-cols-5 gap-3">
+                    <div class="text-center text-xs font-bold text-gray-400">x</div>
+                    <div class="text-center text-xs font-bold text-gray-400">y</div>
+                    <div class="text-center text-xs font-bold text-gray-400">z</div>
+                    <div></div>
+                    <div class="text-center text-xs font-bold text-gray-400">b</div>
+
+                    <input @bind="A00" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A01" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A02" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <div class="flex items-center justify-center font-mono text-gray-400">=</div>
+                    <input @bind="B0" type="number" class="w-full rounded border border-gray-300 bg-red-50 p-2 text-center font-mono text-sm font-bold focus:border-red-500 focus:outline-none" />
+
+                    <input @bind="A10" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A11" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A12" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <div class="flex items-center justify-center font-mono text-gray-400">=</div>
+                    <input @bind="B1" type="number" class="w-full rounded border border-gray-300 bg-red-50 p-2 text-center font-mono text-sm font-bold focus:border-red-500 focus:outline-none" />
+
+                    <input @bind="A20" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A21" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <input @bind="A22" type="number" class="w-full rounded border border-gray-300 bg-gray-50 p-2 text-center font-mono text-sm focus:border-red-500 focus:outline-none" />
+                    <div class="flex items-center justify-center font-mono text-gray-400">=</div>
+                    <input @bind="B2" type="number" class="w-full rounded border border-gray-300 bg-red-50 p-2 text-center font-mono text-sm font-bold focus:border-red-500 focus:outline-none" />
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-8">
+                <div class="flex items-center gap-4">
+                    <label class="text-xs font-bold tracking-widest text-red-600 uppercase">Omega (w)</label>
+                    <input @bind="W" type="number" step="0.05" class="w-24 rounded border border-red-300 bg-red-50 py-1 text-center font-mono text-sm font-bold text-red-900 focus:border-red-600 focus:outline-none" />
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <label class="text-xs font-bold tracking-widest text-gray-500 uppercase">Max Iterations</label>
+                    <input @bind="maxIterations" type="number" min="0" max="1000" placeholder="0 = Auto" class="w-24 border-b border-gray-300 bg-transparent py-1 text-center font-mono text-sm focus:border-red-600 focus:outline-none" />
+                    <span class="text-[10px] text-gray-400">(0 = Stop at default tolerance)</span>
+                </div>
+                
+                @if(errorMsg != "")
+                {
+                    <div class="text-xs font-bold text-red-500">@errorMsg</div>
+                }
+            </div>
+
+            <div class="mt-8 flex justify-end gap-4 border-t border-gray-100 pt-6">
+                <button @onclick="LoadPptExample" 
+                        class="rounded-lg border border-red-200 bg-red-50 px-6 py-2.5 text-xs font-bold tracking-widest text-red-600 transition-all hover:bg-red-100">
+                    PPT EXAMPLE
+                </button>
+                <button @onclick="() => iterations.Clear()" 
+                        class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
+                    CLEAR
+                </button>
+                <button @onclick="Calculate" 
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg active:translate-y-0.5">
+                    CALCULATE
+                </button>
+            </div>
+        </div>
+
+        @if (iterations.Any())
+        {
+            <div class="animate-fade-in-up mt-8">
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-center text-sm">
+                            <thead class="bg-gray-50 text-xs font-bold tracking-wider text-gray-500 uppercase">
+                                <tr>
+                                    <th class="px-6 py-4">Iteration</th>
+                                    <th class="px-6 py-4 text-red-600">x</th>
+                                    <th class="px-6 py-4 text-red-600">y</th>
+                                    <th class="px-6 py-4 text-red-600">z</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach (var iter in iterations)
+                                {
+                                    <tr class="text-gray-700 transition-colors hover:bg-red-50/30">
+                                        <td class="px-6 py-3 font-mono text-gray-400">@iter.Iteration</td>
+                                        <td class="px-6 py-3 font-mono font-bold">@iter.X.ToString("0.00000")</td>
+                                        <td class="px-6 py-3 font-mono font-bold">@iter.Y.ToString("0.00000")</td>
+                                        <td class="px-6 py-3 font-mono font-bold">@iter.Z.ToString("0.00000")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </SolveSection>
+</Method>
+
+@code {
+    private double? A00, A01, A02, B0;
+    private double? A10, A11, A12, B1;
+    private double? A20, A21, A22, B2;
+    private double? W;
+
+    private int maxIterations = 0;
+    private readonly double DEFAULT_TOLERANCE = 0.0001; 
+    private string errorMsg = "";
+
+    private List<SorIteration> iterations = new();
+
+    private void LoadPptExample()
+    {
+        A00 = 3;  A01 = -1; A02 = 1;  B0 = -1;
+        A10 = -1; A11 = 3;  A12 = -1; B1 = 7;
+        A20 = 1;  A21 = -1; A22 = 3;  B2 = -7;
+        W = 1.25;
+        
+        maxIterations = 0; // Default auto-run
+        iterations.Clear();
+        errorMsg = "";
+    }
+
+    private void Calculate()
+    {
+        iterations.Clear();
+        errorMsg = "";
+
+        // Check if any inputs are null
+        if (!A00.HasValue || !A01.HasValue || !A02.HasValue || !B0.HasValue ||
+            !A10.HasValue || !A11.HasValue || !A12.HasValue || !B1.HasValue ||
+            !A20.HasValue || !A21.HasValue || !A22.HasValue || !B2.HasValue || !W.HasValue)
+        {
+            errorMsg = "Please fill in all matrix values and the omega (w) parameter before calculating.";
+            return;
+        }
+
+        double a00 = A00.Value, a01 = A01.Value, a02 = A02.Value, b0 = B0.Value;
+        double a10 = A10.Value, a11 = A11.Value, a12 = A12.Value, b1 = B1.Value;
+        double a20 = A20.Value, a21 = A21.Value, a22 = A22.Value, b2 = B2.Value;
+        double w = W.Value;
+
+        // Ensure diagonals are not zero
+        if (a00 == 0 || a11 == 0 || a22 == 0)
+        {
+            errorMsg = "Main diagonal elements cannot be zero for the Gauss-Seidel/SOR methods. Please rearrange your equations.";
+            return;
+        }
+
+        double x = 0, y = 0, z = 0;
+        
+        // Add the initial baseline (Iteration 0)
+        iterations.Add(new SorIteration { Iteration = 0, X = x, Y = y, Z = z });
+
+        int loopLimit = maxIterations > 0 ? maxIterations : 100;
+
+        for (int i = 1; i <= loopLimit; i++)
+        {
+            double xOld = x;
+            double yOld = y;
+            double zOld = z;
+
+            // SOR Step for X (uses old Y and Z)
+            double gsX = (b0 - a01 * yOld - a02 * zOld) / a00;
+            x = Math.Round((1 - w) * xOld + w * gsX, 5);
+
+            // SOR Step for Y (uses NEW X, old Z)
+            double gsY = (b1 - a10 * x - a12 * zOld) / a11;
+            y = Math.Round((1 - w) * yOld + w * gsY, 5);
+
+            // SOR Step for Z (uses NEW X, NEW Y)
+            double gsZ = (b2 - a20 * x - a21 * y) / a22;
+            z = Math.Round((1 - w) * zOld + w * gsZ, 5);
+
+            iterations.Add(new SorIteration { Iteration = i, X = x, Y = y, Z = z });
+
+            // Check for stopping condition
+            double maxError = Math.Max(Math.Abs(x - xOld), Math.Max(Math.Abs(y - yOld), Math.Abs(z - zOld)));
+            
+            // Break if the error drops below the tolerance, OR if the variables completely stop changing (locked)
+            if (maxError < DEFAULT_TOLERANCE || (x == xOld && y == yOld && z == zOld))
+            {
+                break;
+            }
+        }
+    }
+
+    public class SorIteration
+    {
+        public int Iteration { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+    }
+}

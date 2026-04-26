@@ -1,28 +1,27 @@
 ﻿@page "/"
 @inject NavigationManager NavManager
 
-
-<div class="flex min-h-screen flex-col bg-slate-50/50 font-sans selection:bg-blue-200">
+<div class="flex min-h-screen flex-col bg-slate-50/50 font-sans selection:bg-red-200">
     @* --- HERO SECTION --- *@
     <section class="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden border-b border-gray-200 bg-white px-6 py-20 shadow-sm">
-        @* Background Pattern - Thicker, more visible dots *@
+        @* Background Pattern *@
         <div class="absolute inset-0 bg-[radial-gradient(#94a3b8_1.5px,transparent_1.5px)] opacity-40 [background-size:20px_20px]"></div>
         
         <div class="relative mx-auto max-w-4xl text-center">
-            <div class="mb-8 inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-bold tracking-widest text-blue-700 uppercase shadow-sm">
-                <span class="mr-2 flex h-2 w-2 animate-pulse rounded-full bg-blue-600"></span>
-                v0.2 Alpha Build
+            <div class="mb-8 inline-flex items-center rounded-full border border-red-200 bg-red-50 px-4 py-1.5 text-xs font-bold tracking-widest text-red-700 uppercase shadow-sm">
+                <span class="mr-2 flex h-2 w-2 animate-pulse rounded-full bg-red-600"></span>
+                v0.1
             </div>
 
             <h1 class="mb-6 text-6xl font-black tracking-tight text-gray-900 md:text-8xl">
-                <span class="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">Approximately</span><span class="text-blue-600">.</span>
+                <span class="bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">Approximately</span><span class="text-red-600">.</span>
             </h1>
 
             <div class="mb-12 flex justify-center gap-4">
-                <a href="#solvers" class="rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-bold tracking-widest text-white no-underline shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:no-underline hover:shadow-xl hover:shadow-blue-600/40">
+                <a href="#solvers" style="text-decoration: none;" class="rounded-xl bg-red-600 px-8 py-3.5 text-sm font-bold tracking-widest text-white shadow-lg shadow-red-600/30 transition-all hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-600/40">
                     EXPLORE METHODS
                 </a>
-                <a href="https://github.com" target="_blank" class="rounded-xl border border-gray-200 bg-white px-8 py-3.5 text-sm font-bold tracking-widest text-gray-700 no-underline shadow-sm transition-all hover:-translate-y-0.5 hover:bg-gray-50 hover:no-underline hover:shadow-md">
+                <a href="https://github.com" target="_blank" style="text-decoration: none;" class="rounded-xl border border-gray-200 bg-white px-8 py-3.5 text-sm font-bold tracking-widest text-gray-700 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-gray-50 hover:shadow-md">
                     <i class="fa-brands fa-github mr-2"></i> SOURCE
                 </a>
             </div>
@@ -60,20 +59,17 @@
                 @foreach (var method in RootMethods)
                 {
                     <div @onclick='() => NavManager.NavigateTo(method.Url)'
-                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5">
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-red-300 hover:shadow-xl hover:shadow-red-900/5">
 
                         <div class="mb-6 flex items-start justify-between">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-blue-50 group-hover:text-blue-600">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-red-50 group-hover:text-red-600">
                                 <i class="@method.IconClass fa-lg"></i>
                             </div>
-                            <span class="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 font-bold tracking-widest text-[10px] text-blue-600 uppercase">
-                                @method.Tag
-                            </span>
                         </div>
 
-                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-blue-600">@method.Title</h3>
+                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-red-600">@method.Title</h3>
 
-                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-blue-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
+                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-red-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
                             Launch Solver <i class="fa-solid fa-arrow-right ml-2 -translate-x-2 transition-transform duration-300 group-hover:translate-x-0"></i>
                         </div>
                     </div>
@@ -82,7 +78,7 @@
         </div>
 
         @* Category: Linear Algebra *@
-        <div class="mb-12">
+        <div class="mb-20">
             <div class="mb-8 flex items-end justify-between border-b border-gray-200 pb-4">
                 <div>
                     <h2 class="text-2xl font-black tracking-tight text-gray-900">Linear Algebra</h2>
@@ -95,20 +91,49 @@
                 @foreach (var method in LinearMethods)
                 {
                     <div @onclick='() => NavManager.NavigateTo(method.Url)'
-                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5">
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-red-300 hover:shadow-xl hover:shadow-red-900/5">
 
                         <div class="mb-6 flex items-start justify-between">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-blue-50 group-hover:text-blue-600">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-red-50 group-hover:text-red-600">
                                 <i class="@method.IconClass fa-lg"></i>
                             </div>
-                            <span class="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 font-bold tracking-widest text-[10px] text-blue-600 uppercase">
-                                @method.Tag
-                            </span>
                         </div>
 
-                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-blue-600">@method.Title</h3>
+                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-red-600">@method.Title</h3>
 
-                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-blue-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
+                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-red-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
+                            Launch Solver <i class="fa-solid fa-arrow-right ml-2 -translate-x-2 transition-transform duration-300 group-hover:translate-x-0"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* Category: Curve Fitting (Regression) *@
+        <div class="mb-12">
+            <div class="mb-8 flex items-end justify-between border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black tracking-tight text-gray-900">Curve Fitting</h2>
+                    <p class="mt-1 text-sm text-gray-500">Model relationships between variables using least-squares regression lines and polynomials.</p>
+                </div>
+                <span class="hidden rounded-lg bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 md:inline-block">@RegressionMethods.Count Solvers</span>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                @foreach (var method in RegressionMethods)
+                {
+                    <div @onclick='() => NavManager.NavigateTo(method.Url)'
+                         class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-red-300 hover:shadow-xl hover:shadow-red-900/5">
+
+                        <div class="mb-6 flex items-start justify-between">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-50 text-gray-400 transition-colors duration-300 group-hover:bg-red-50 group-hover:text-red-600">
+                                <i class="@method.IconClass fa-lg"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="mb-8 text-lg font-bold text-gray-900 transition-colors group-hover:text-red-600">@method.Title</h3>
+
+                        <div class="mt-auto flex items-center text-xs font-bold tracking-widest text-red-600 uppercase opacity-0 transition-all duration-300 group-hover:opacity-100">
                             Launch Solver <i class="fa-solid fa-arrow-right ml-2 -translate-x-2 transition-transform duration-300 group-hover:translate-x-0"></i>
                         </div>
                     </div>
@@ -122,20 +147,14 @@
     <section class="border-t border-gray-200 bg-white py-24">
         <div class="mx-auto max-w-6xl px-6">
             <div class="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <div class="rounded-3xl bg-blue-50/50 p-8 transition-colors hover:bg-blue-50">
-                    <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 shadow-inner">
-                        <i class="fa-solid fa-graduation-cap fa-xl"></i>
-                    </div>
+                <div class="rounded-3xl bg-red-50/50 p-8 transition-colors hover:bg-red-50">
                     <h3 class="mb-4 text-2xl font-black text-gray-900">Our Mission</h3>
                     <p class="leading-relaxed text-gray-600">
                         To help students effectively learn, understand, and truly appreciate the power of numerical methods. We aim to provide an interactive platform that bridges the gap between abstract mathematical formulas and practical problem-solving.
                     </p>
                 </div>
 
-                <div class="rounded-3xl bg-blue-50/50 p-8 transition-colors hover:bg-blue-50">
-                    <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 shadow-inner">
-                        <i class="fa-solid fa-eye fa-xl"></i>
-                    </div>
+                <div class="rounded-3xl bg-red-50/50 p-8 transition-colors hover:bg-red-50">
                     <h3 class="mb-4 text-2xl font-black text-gray-900">Our Vision</h3>
                     <p class="leading-relaxed text-gray-600">
                         We envision a future where computational mathematics is intuitive and interactive. By removing the barrier of complex syntax and setup, we strive to be the standard open-source reference for learning and applying numerical methods globally.
@@ -158,9 +177,10 @@
                         Solving the world's equations, one iteration at a time.
                     </p>
                     <div class="mt-8 flex gap-5">
+                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-instagram fa-lg"></i></a>
                         <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-twitter fa-lg"></i></a>
                         <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-github fa-lg"></i></a>
-                        <a href="#" class="text-slate-400 transition-colors hover:text-white"><i class="fa-brands fa-linkedin fa-lg"></i></a>
                     </div>
                 </div>
 
@@ -168,10 +188,10 @@
                 <div>
                     <h5 class="mb-6 text-xs font-bold tracking-widest text-slate-100 uppercase">Quick Access</h5>
                     <ul class="space-y-3 text-sm text-slate-400">
-                        <li><a href="/" class="transition-colors hover:text-blue-400 hover:underline">Home</a></li>
-                        <li><a href="/method/bisection" class="transition-colors hover:text-blue-400 hover:underline">Bisection Solver</a></li>
-                        <li><a href="/method/newton-raphson" class="transition-colors hover:text-blue-400 hover:underline">Newton-Raphson</a></li>
-                        <li><a href="/method/gauss-elimination" class="transition-colors hover:text-blue-400 hover:underline">Matrix Solver</a></li>
+                        <li><a href="/" class="transition-colors hover:text-red-400 hover:underline">Home</a></li>
+                        <li><a href="/method/bisection" class="transition-colors hover:text-red-400 hover:underline">Bisection Solver</a></li>
+                        <li><a href="/method/newton-raphson" class="transition-colors hover:text-red-400 hover:underline">Newton-Raphson</a></li>
+                        <li><a href="/method/gauss-elimination" class="transition-colors hover:text-red-400 hover:underline">Matrix Solver</a></li>
                     </ul>
                 </div>
 
@@ -179,10 +199,10 @@
                 <div>
                     <h5 class="mb-6 text-xs font-bold tracking-widest text-slate-100 uppercase">Resources</h5>
                     <ul class="space-y-3 text-sm text-slate-400">
-                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Documentation</a></li>
-                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Report an Issue</a></li>
-                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Privacy Policy</a></li>
-                        <li><a href="#" class="transition-colors hover:text-blue-400 hover:underline">Terms of Use</a></li>
+                        <li><a href="#" class="transition-colors hover:text-red-400 hover:underline">Documentation</a></li>
+                        <li><a href="#" class="transition-colors hover:text-red-400 hover:underline">Report an Issue</a></li>
+                        <li><a href="#" class="transition-colors hover:text-red-400 hover:underline">Privacy Policy</a></li>
+                        <li><a href="#" class="transition-colors hover:text-red-400 hover:underline">Terms of Use</a></li>
                     </ul>
                 </div>
             </div>
@@ -192,7 +212,7 @@
                     &copy; @DateTime.Now.Year Approximately. All rights reserved.
                 </p>
                 <p class="text-xs text-slate-500">
-                    Built with <span class="font-bold text-blue-400">Blazor</span> and <i class="fa-solid fa-heart mx-1 text-red-500"></i>
+                    Built with <span class="font-bold text-red-400">Blazor</span> and <i class="fa-solid fa-heart mx-1 text-red-500"></i>
                 </p>
             </div>
         </div>
@@ -204,7 +224,6 @@
     {
         public string Title { get; set; } = "";
         public string Url { get; set; } = "";
-        public string Tag { get; set; } = "";
         public string IconClass { get; set; } = "fa-solid fa-calculator";
     }
 
@@ -214,31 +233,26 @@
         new MethodCard {
             Title = "Bisection Method",
             Url = "/method/bisection",
-            Tag = "Bracketing",
             IconClass = "fa-solid fa-scissors"
         },
         new MethodCard {
             Title = "False-Position",
             Url = "/method/false-position",
-            Tag = "Bracketing",
             IconClass = "fa-solid fa-chart-line"
         },
         new MethodCard {
             Title = "Secant Method",
             Url = "/method/secant",
-            Tag = "Open Method",
             IconClass = "fa-solid fa-slash"
         },
         new MethodCard {
             Title = "Fixed Point Iteration",
             Url = "/method/fixed-point-iteration",
-            Tag = "Open Method",
             IconClass = "fa-solid fa-arrows-rotate"
         },
         new MethodCard {
             Title = "Newton-Raphson",
             Url = "/method/newton-raphson",
-            Tag = "Open Method",
             IconClass = "fa-solid fa-bolt"
         }
     };
@@ -249,20 +263,42 @@
         new MethodCard {
             Title = "Gauss Elimination",
             Url = "/method/gauss-elimination",
-            Tag = "Direct",
             IconClass = "fa-solid fa-table-cells"
         },
         new MethodCard {
             Title = "Gauss-Seidel",
             Url = "/method/gauss-seidel",
-            Tag = "Iterative",
             IconClass = "fa-solid fa-arrow-down-up-across-line"
         },
         new MethodCard {
             Title = "Gauss-Jacobi",
             Url = "/method/gauss-jacobi",
-            Tag = "Iterative",
             IconClass = "fa-solid fa-layer-group"
+        },
+        new MethodCard {
+            Title = "Relaxation Method",
+            Url = "/method/relaxation",
+            IconClass = "fa-solid fa-compress"
+        },
+        new MethodCard {
+            Title = "SOR Method",
+            Url = "/method/sor",
+            IconClass = "fa-solid fa-forward-fast"
+        }
+    };
+
+    // Curve Fitting
+    private List<MethodCard> RegressionMethods = new()
+    {
+        new MethodCard {
+            Title = "Linear Regression",
+            Url = "/method/linear-regression",
+            IconClass = "fa-solid fa-chart-line"
+        },
+        new MethodCard {
+            Title = "Polynomial Regression",
+            Url = "/method/polynomial-regression",
+            IconClass = "fa-solid fa-bezier-curve"
         }
     };
 }
