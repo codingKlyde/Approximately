@@ -3,7 +3,7 @@
 
 <Method Title="Fixed-Point Iteration">
     <LearnSection>
-        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+        <div class="mb-8 rounded-xl border border-red-100 bg-red-50/50 p-6">
             <div class="flex items-start gap-4">
                 <div>
                     <p class="leading-relaxed text-gray-700">
@@ -80,18 +80,18 @@
                 Real-World Applications
             </h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-network-wired"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Search Engines</h4>
                     <p class="text-xs text-gray-500">Google's original PageRank algorithm relies on finding the principal eigenvector of a web matrix, which is formulated as a massive fixed-point iteration problem.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-scale-balanced"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Economics</h4>
                     <p class="text-xs text-gray-500">Used to find the equilibrium state in macroeconomic supply and demand models where prices stabilize iteratively.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-temperature-half"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-temperature-half"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Steady-State Physics</h4>
                     <p class="text-xs text-gray-500">Used in fluid dynamics and heat transfer to predict temperature distributions when a system finally reaches thermal equilibrium.</p>
                 </div>
@@ -108,8 +108,8 @@
                 </p>
             </div>
 
-            <div class="rounded-xl border border-blue-100 bg-white p-6">
-                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+            <div class="rounded-xl border border-red-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase">
                     Pro Tip
                 </h3>
                 <p class="text-sm text-gray-600">
@@ -139,7 +139,7 @@
                     <div class="relative">
                         <span class="absolute top-1/2 left-0 -translate-y-1/2 font-mono text-gray-400">g(x)=</span>
                         <input @bind="functionInput" placeholder="e.g. (2-x^3)/2"
-                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-red-600 focus:outline-none" />
                     </div>
                     <p class="text-[10px] text-gray-400">Supported: sin, cos, tan, log, exp, ^</p>
                 </div>
@@ -152,7 +152,7 @@
                     <div class="flex items-center gap-4">
                         <span class="font-mono text-gray-400">x₀ =</span>
                         <input @bind="x0Input" type="number" placeholder="e.g. 0"
-                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-red-600 focus:outline-none" />
                     </div>
                 </div>
 
@@ -161,11 +161,11 @@
                     <div class="flex items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
                             <input type="checkbox" @bind="UseIterationLimit" id="iterCheck"
-                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                                   class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500" />
                             <label for="iterCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Max Iterations</label>
                         </div>
                         <input @bind="totalIteration" type="number" disabled="@(!UseIterationLimit)"
-                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-red-600 focus:outline-none disabled:text-gray-200" />
                     </div>
                 </div>
             </div>
@@ -177,7 +177,7 @@
                     CLEAR
                 </button>
                 <button @onclick="Calculate"
-                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg active:translate-y-0.5">
                     CALCULATE
                 </button>
             </div>
@@ -203,7 +203,7 @@
                             <thead class="bg-gray-50 text-xs font-bold tracking-wider text-gray-500 uppercase">
                                 <tr>
                                     <th class="px-6 py-4">Iter (i)</th>
-                                    <th class="px-6 py-4 text-blue-600">x</th>
+                                    <th class="px-6 py-4 text-red-600">x</th>
                                     <th class="px-6 py-4 font-bold text-gray-800">g(x)</th>
                                 </tr>
                             </thead>
@@ -218,9 +218,9 @@
 
                                     if (isExactRoot) exactRootFoundInTable = true;
 
-                                    <tr class="transition-colors hover:bg-blue-50/30 @(isHighlight ? "bg-blue-600 text-white hover:bg-blue-700" : "text-gray-600")">
+                                    <tr class="transition-colors hover:bg-red-50/30 @(isHighlight ? "bg-red-600 text-white hover:bg-red-700" : "text-gray-600")">
                                         <td class="px-6 py-3 font-mono">@iter.Index</td>
-                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.Xi.ToString("0.####")</td>
+                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-red-600")">@iter.Xi.ToString("0.####")</td>
                                         <td class="px-6 py-3 font-mono font-bold">@iter.Gxi.ToString("0.####")</td>
                                     </tr>
                                 }

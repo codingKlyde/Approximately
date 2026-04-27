@@ -181,7 +181,6 @@
                 <div class="flex items-center gap-4">
                     <label class="text-xs font-bold tracking-widest text-gray-500 uppercase">Max Iterations</label>
                     <input @bind="maxIterations" type="number" min="0" max="1000" placeholder="0 = Auto" class="w-24 border-b border-gray-300 bg-transparent py-1 text-center font-mono text-sm focus:border-red-600 focus:outline-none" />
-                    <span class="text-[10px] text-gray-400">(0 = Stop at default tolerance)</span>
                 </div>
                 
                 @if (errorMsg != "")
@@ -193,7 +192,7 @@
             <div class="mt-8 flex justify-end gap-4 border-t border-gray-100 pt-6">
                 <button @onclick="LoadPptExample"
                         class="rounded-lg border border-red-200 bg-red-50 px-6 py-2.5 text-xs font-bold tracking-widest text-red-600 transition-all hover:bg-red-100">
-                    PPT EXAMPLE
+                    EXAMPLE
                 </button>
                 <button @onclick="() => iterations.Clear()"
                         class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">

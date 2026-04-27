@@ -4,7 +4,7 @@
 
 <Method Title="Gauss-Jacobi Method">
     <LearnSection>
-        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+        <div class="mb-8 rounded-xl border border-red-100 bg-red-50/50 p-6">
             <div class="flex items-start gap-4">
                 <div>
                     <p class="leading-relaxed text-gray-700">
@@ -88,18 +88,18 @@
                 Real-World Applications
             </h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-microchip"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-microchip"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">GPU Rendering</h4>
                     <p class="text-xs text-gray-500">Because Jacobi is perfectly parallelizable, graphics cards use it to solve massive physical lighting simulations simultaneously across thousands of cores.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-image"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-image"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Image Processing</h4>
                     <p class="text-xs text-gray-500">Image blurring and smoothing filters use Jacobi-style neighbor averaging to calculate the new color of every pixel at once.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-wind"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-wind"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Finite Difference Methods</h4>
                     <p class="text-xs text-gray-500">Used to solve differential equations on 3D grids, such as mapping heat diffusion or aerodynamics over an airplane wing.</p>
                 </div>
@@ -116,8 +116,8 @@
                 </p>
             </div>
 
-            <div class="rounded-xl border border-blue-100 bg-white p-6">
-                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+            <div class="rounded-xl border border-red-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase">
                     Pro Tip
                 </h3>
                 <p class="text-sm text-gray-600">
@@ -134,15 +134,15 @@
         </div>
     </LearnSection>
     
-<SolveSection>
+    <SolveSection>
         @* --- INPUT AREA --- *@
         <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
             <div class="mb-6 flex items-center justify-between">
                 <label class="block text-xs font-bold tracking-widest text-gray-500 uppercase">
                     System of Equations (3x3) <span class="text-red-400">*</span>
                 </label>
-                <button @onclick="LoadExample" class="font-bold tracking-wider text-[10px] text-blue-600 uppercase hover:underline">
-                    Load Slide Example
+                <button @onclick="LoadExample" class="font-bold tracking-wider text-[10px] text-red-600 uppercase hover:underline">
+                    EXAMPLE
                 </button>
             </div>
 
@@ -155,27 +155,27 @@
                     <div class="border-l border-gray-200 pl-4 text-center text-xs font-bold tracking-wider text-gray-800 uppercase">b (RHS)</div>
 
                     @* Row 1 *@
-                    <input @bind="a11" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a12" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a13" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a11" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a12" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a13" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     <div class="border-l border-gray-200 pl-4">
-                        <input @bind="b1" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                        <input @bind="b1" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     </div>
 
                     @* Row 2 *@
-                    <input @bind="a21" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a22" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a23" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a21" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a22" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a23" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     <div class="border-l border-gray-200 pl-4">
-                        <input @bind="b2" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                        <input @bind="b2" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     </div>
 
                     @* Row 3 *@
-                    <input @bind="a31" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a32" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
-                    <input @bind="a33" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                    <input @bind="a31" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a32" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
+                    <input @bind="a33" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     <div class="border-l border-gray-200 pl-4">
-                        <input @bind="b3" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-blue-50 focus:ring-1 focus:ring-blue-400 focus:outline-none" />
+                        <input @bind="b3" type="number" class="w-full rounded bg-gray-50 px-4 py-3 text-center font-mono text-sm font-bold focus:bg-red-50 focus:ring-1 focus:ring-red-400 focus:outline-none" />
                     </div>
                 </div>
             </div>
@@ -205,12 +205,12 @@
 
             @* --- ACTION BUTTONS --- *@
             <div class="mt-10 flex justify-end gap-4 border-t border-gray-100 pt-6">
-                <button @onclick="ClearInputs" 
+                <button @onclick="ClearInputs"
                         class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
                     CLEAR
                 </button>
-                <button @onclick="Calculate" 
-                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                <button @onclick="Calculate"
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg active:translate-y-0.5">
                     CALCULATE
                 </button>
             </div>
@@ -233,8 +233,8 @@
                 else
                 {
                     @* Display Rearranged Formulas *@
-                    <div class="mb-6 rounded-xl border border-blue-100 bg-blue-50/50 p-6 shadow-sm">
-                        <h3 class="mb-4 text-xs font-bold tracking-widest text-blue-800 uppercase">Rearranged Equations Used</h3>
+                    <div class="mb-6 rounded-xl border border-red-100 bg-red-50/50 p-6 shadow-sm">
+                        <h3 class="mb-4 text-xs font-bold tracking-widest text-red-800 uppercase">Rearranged Equations Used</h3>
                         <div class="flex flex-col gap-2 font-mono text-sm text-gray-700">
                             <div>x1 = ( @b1 - (@a12)x2 - (@a13)x3 ) / @a11</div>
                             <div>x2 = ( @b2 - (@a21)x1 - (@a23)x3 ) / @a22</div>
@@ -248,9 +248,9 @@
                                 <thead class="bg-gray-50 text-xs font-bold tracking-wider text-gray-500 uppercase">
                                     <tr>
                                         <th class="px-6 py-4">Iter</th>
-                                        <th class="px-6 py-4 text-blue-600">x1</th>
-                                        <th class="px-6 py-4 text-blue-600">x2</th>
-                                        <th class="px-6 py-4 text-blue-600">x3</th>
+                                        <th class="px-6 py-4 text-red-600">x1</th>
+                                        <th class="px-6 py-4 text-red-600">x2</th>
+                                        <th class="px-6 py-4 text-red-600">x3</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
@@ -267,11 +267,11 @@
                                         bool isHighlight = (isExactRoot && !exactRootFoundInTable) || (!exactRootFoundInTable && isLastRow && !diverged);
                                         if (isExactRoot) exactRootFoundInTable = true;
 
-                                        <tr class="transition-colors hover:bg-blue-50/30 @(isHighlight ? "bg-blue-600 text-white hover:bg-blue-700" : "text-gray-600")">
+                                        <tr class="transition-colors hover:bg-red-50/30 @(isHighlight ? "bg-red-600 text-white hover:bg-red-700" : "text-gray-600")">
                                             <td class="px-6 py-3 font-mono">@iter.Index</td>
-                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.X1.ToString("0.####")</td>
-                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.X2.ToString("0.####")</td>
-                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.X3.ToString("0.####")</td>
+                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-red-600")">@iter.X1.ToString("0.####")</td>
+                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-red-600")">@iter.X2.ToString("0.####")</td>
+                                            <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-red-600")">@iter.X3.ToString("0.####")</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -396,10 +396,10 @@
 
             while (keepIterating)
             {
-                // Slide-Specific Logic: Immediate substitution mid-row (mimicking your slide's table)
+                // Gauss-Jacobi magic: Compute all new variables using ONLY the OLD variables
                 double x1Next = (b1.Value - (a12.Value * x2Curr) - (a13.Value * x3Curr)) / a11.Value;
-                double x2Next = (b2.Value - (a21.Value * x1Next) - (a23.Value * x3Curr)) / a22.Value;
-                double x3Next = (b3.Value - (a31.Value * x1Next) - (a32.Value * x2Next)) / a33.Value;
+                double x2Next = (b2.Value - (a21.Value * x1Curr) - (a23.Value * x3Curr)) / a22.Value;
+                double x3Next = (b3.Value - (a31.Value * x1Curr) - (a32.Value * x2Curr)) / a33.Value;
 
                 // Stop if difference is less than 0.0001
                 double diff1 = Math.Abs(x1Next - x1Curr);
@@ -428,8 +428,9 @@
                 {
                     keepIterating = false;
                 }
-                else if (i >= 1000) 
+                else if (i >= 1000)
                 {
+                    // Fallback to prevent freezing on non-convergent matrices
                     keepIterating = false;
                 }
 

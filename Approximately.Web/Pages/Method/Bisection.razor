@@ -3,12 +3,12 @@
 
 <Method Title="Bisection Method">
     <LearnSection>
-        <div class="mb-8 rounded-xl border border-blue-100 bg-blue-50/50 p-6">
+        <div class="mb-8 rounded-xl border border-red-100 bg-red-50/50 p-6">
             <div class="flex items-start gap-4">
                 <div>
                     <p class="leading-relaxed text-gray-700">
-                        The Bisection method is a robust "bracketing" algorithm. It works by repeatedly cutting an interval in half 
-                        and selecting the sub-interval that contains the root. It’s like searching for a word in a dictionary by opening 
+                        The Bisection method is a robust "bracketing" algorithm. It works by repeatedly cutting an interval in half
+                        and selecting the sub-interval that contains the root. It’s like searching for a word in a dictionary by opening
                         it to the middle, checking if the word is before or after, and repeating.
                     </p>
                 </div>
@@ -24,7 +24,7 @@
                     <li>Find two points a and b such that f(a) and f(b) have opposite signs.</li>
                     <li>Calculate midpoint: c = (a + b) / 2.</li>
                     <li>Evaluate f(c). If it's close enough to 0, stop.</li>
-                        <li>If f(a) \cdot f(c) is less than 0, the root is in the left half. Set b = c.</li>
+                    <li>If f(a) \cdot f(c) is less than 0, the root is in the left half. Set b = c.</li>
                     <li>Otherwise, the root is in the right half. Set a = c.</li>
                     <li>Repeat until error is minimal.</li>
                 </ol>
@@ -84,18 +84,18 @@
                 Real-World Applications
             </h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-plane-circle-check"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-plane-circle-check"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Safety Systems</h4>
                     <p class="text-xs text-gray-500">Used in flight controls where a "crash" (divide by zero error) is unacceptable. Bisection is slow but never fails.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-chart-line"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Financial Math</h4>
                     <p class="text-xs text-gray-500">Calculating the IRR (Internal Rate of Return) for investments where the equation is complex and non-linear.</p>
                 </div>
-                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md">
-                    <div class="mb-2 text-blue-600"><i class="fa-solid fa-gamepad"></i></div>
+                <div class="rounded-lg border border-gray-100 bg-white p-4 transition-all hover:border-red-200 hover:shadow-md">
+                    <div class="mb-2 text-red-600"><i class="fa-solid fa-gamepad"></i></div>
                     <h4 class="mb-1 text-sm font-bold text-gray-900">Ray Tracing</h4>
                     <p class="text-xs text-gray-500">Finding the exact point where a light ray hits a curved surface in computer graphics rendering.</p>
                 </div>
@@ -114,8 +114,8 @@
             </div>
 
             @* Pro Tip *@
-            <div class="rounded-xl border border-blue-100 bg-white p-6">
-                <h3 class="mb-2 text-xs font-bold tracking-widest text-blue-600 uppercase">
+            <div class="rounded-xl border border-red-100 bg-white p-6">
+                <h3 class="mb-2 text-xs font-bold tracking-widest text-red-600 uppercase">
                     Pro Tip
                 </h3>
                 <p class="text-sm text-gray-600">
@@ -142,8 +142,8 @@
                     </label>
                     <div class="relative">
                         <span class="absolute top-1/2 left-0 -translate-y-1/2 font-mono text-gray-400">f(x)=</span>
-                        <input @bind="functionInput" placeholder="x^3 - x - 2" 
-                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                        <input @bind="functionInput" placeholder="x^3 + 2*x - 2"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 pl-12 font-mono text-lg text-gray-900 focus:border-red-600 focus:outline-none" />
                     </div>
                     <p class="text-[10px] text-gray-400">Supported: sin, cos, tan, log, exp, ^</p>
                 </div>
@@ -153,45 +153,49 @@
                         Initial Bracket [a, b] <span class="text-red-400">*</span>
                     </label>
                     <div class="flex items-center gap-4">
-                        <input @bind="aInput" type="number" placeholder="a" 
-                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                        <input @bind="aInput" type="number" placeholder="a"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-red-600 focus:outline-none" />
                         <span class="text-gray-300">to</span>
-                        <input @bind="bInput" type="number" placeholder="b" 
-                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-blue-600 focus:outline-none" />
+                        <input @bind="bInput" type="number" placeholder="b"
+                               class="w-full border-b border-gray-200 bg-transparent py-2 text-center font-mono text-lg text-gray-900 focus:border-red-600 focus:outline-none" />
                     </div>
                 </div>
 
                 <div class="space-y-6">
                     <div class="flex items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <input type="checkbox" @bind="UseIterationLimit" id="iterCheck" 
-                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"/>
+                            <input type="checkbox" @bind="UseIterationLimit" id="iterCheck"
+                                   class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500" />
                             <label for="iterCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Iterations</label>
                         </div>
                         <input @bind="totalIteration" type="number" disabled="@(!UseIterationLimit)"
-                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-red-600 focus:outline-none disabled:text-gray-200" />
                     </div>
 
                     @* Error Threshold *@
                     <div class="flex items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <input type="checkbox" @bind="UseErrorThreshold" id="errorCheck" 
-                                   class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"/>
+                            <input type="checkbox" @bind="UseErrorThreshold" id="errorCheck"
+                                   class="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500" />
                             <label for="errorCheck" class="cursor-pointer text-xs font-bold text-gray-600 uppercase">Error (%)</label>
                         </div>
                         <input @bind="errorThreshold" type="number" disabled="@(!UseErrorThreshold)"
-                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-blue-600 focus:outline-none disabled:text-gray-200" />
+                               class="w-20 border-b border-gray-200 bg-transparent py-1 text-right font-mono text-sm focus:border-red-600 focus:outline-none disabled:text-gray-200" />
                     </div>
                 </div>
             </div>
 
             <div class="mt-10 flex justify-end gap-4 border-t border-gray-100 pt-6">
-                 <button @onclick="() => iterations.Clear()" 
+                <button @onclick="LoadPptExample"
+                        class="rounded-lg border border-red-200 bg-red-50 px-6 py-2.5 text-xs font-bold tracking-widest text-red-600 transition-all hover:bg-red-100">
+                    EXAMPLE
+                </button>
+                <button @onclick="() => iterations.Clear()"
                         class="rounded-lg px-6 py-2.5 text-xs font-bold tracking-widest text-gray-500 transition-all hover:bg-gray-50 hover:text-gray-900">
                     CLEAR
                 </button>
-                <button @onclick="Calculate" 
-                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-blue-600 hover:shadow-lg active:translate-y-0.5">
+                <button @onclick="Calculate"
+                        class="rounded-lg bg-slate-900 px-8 py-2.5 text-xs font-bold tracking-widest text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg active:translate-y-0.5">
                     CALCULATE
                 </button>
             </div>
@@ -204,7 +208,6 @@
                     <div class="rounded bg-gray-100 px-2 py-1 font-mono">f(a) = @firstFaFormula</div>
                     <div class="rounded bg-gray-100 px-2 py-1 font-mono">f(b) = @firstFbFormula</div>
                 </div>
-
                 <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-center text-sm">
@@ -213,7 +216,7 @@
                                     <th class="px-6 py-4">Iter</th>
                                     <th class="px-6 py-4 text-gray-400">a</th>
                                     <th class="px-6 py-4 text-gray-400">b</th>
-                                    <th class="px-6 py-4 text-blue-600">xr (Midpoint)</th>
+                                    <th class="px-6 py-4 text-red-600">xr (Midpoint)</th>
                                     <th class="px-6 py-4">f(a)</th>
                                     <th class="px-6 py-4">f(b)</th>
                                     <th class="px-6 py-4 font-bold text-gray-800">f(xr)</th>
@@ -221,20 +224,20 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                @{ 
-                                    bool rootFoundInTable = false; 
+                                @{
+                                    bool rootFoundInTable = false;
                                 }
                                 @foreach (var iter in iterations)
                                 {
-                                    bool satisfiesGoal = Math.Abs(iter.Fxr) < 1e-9 || (UseErrorThreshold && errorThreshold.HasValue && iter.Error.HasValue && iter.Error <= errorThreshold);
+                                    bool satisfiesGoal = Math.Abs(iter.Fxr) <= 0.0001 || (UseErrorThreshold && errorThreshold.HasValue && iter.Error.HasValue && iter.Error <= errorThreshold);
                                     bool isHighlight = satisfiesGoal && !rootFoundInTable;
                                     if (satisfiesGoal) rootFoundInTable = true;
 
-                                    <tr class="transition-colors hover:bg-blue-50/30 @(isHighlight ? "bg-blue-600 text-white hover:bg-blue-700" : "text-gray-600")">
+                                    <tr class="transition-colors hover:bg-red-50/30 @(isHighlight ? "bg-red-600 text-white hover:bg-red-700" : "text-gray-600")">
                                         <td class="px-6 py-3 font-mono">@iter.Index</td>
                                         <td class="px-6 py-3 font-mono">@iter.A.ToString("0.####")</td>
                                         <td class="px-6 py-3 font-mono">@iter.B.ToString("0.####")</td>
-                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-blue-600")">@iter.Xr.ToString("0.####")</td>
+                                        <td class="px-6 py-3 font-mono font-bold @(isHighlight ? "text-white" : "text-red-600")">@iter.Xr.ToString("0.####")</td>
                                         <td class="px-6 py-3 font-mono opacity-70">@iter.Fa.ToString("0.####")</td>
                                         <td class="px-6 py-3 font-mono opacity-70">@iter.Fb.ToString("0.####")</td>
                                         <td class="px-6 py-3 font-mono font-bold">@iter.Fxr.ToString("0.####")</td>
@@ -249,22 +252,21 @@
                 </div>
 
                 @{
-                    var last = iterations.Last();
-                    bool success = Math.Abs(last.Fxr) < 1e-9 || (errorThreshold.HasValue && last.Error <= errorThreshold);
+                    var last = iterations.LastOrDefault();
+                    bool success = last != null && (Math.Abs(last.Fxr) <= 0.0001 || (UseErrorThreshold && errorThreshold.HasValue && last.Error <= errorThreshold));
                 }
                 
-                @if (!success)
+                @if (!success && UseIterationLimit)
                 {
                     <div class="mt-4 flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
                         <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
-                        <span class="text-sm font-medium">The root is still further in the iterations, try increasing it to show.</span>
+                        <span class="text-sm font-medium">The root is still further in the iterations, try increasing the max iterations to show it.</span>
                     </div>
                 }
             </div>
         }
     </SolveSection>
 </Method>
-
 
 @code {
     private string functionInput = "", firstFaFormula = "", firstFbFormula = "";
@@ -275,7 +277,6 @@
 
     private bool _useIterationLimit = false;
     private bool _useErrorThreshold = false;
-
 
     private bool UseIterationLimit
     {
@@ -293,10 +294,19 @@
         set
         {
             _useErrorThreshold = value;
-
             if (value)
                 _useIterationLimit = false;
         }
+    }
+
+    private void LoadPptExample()
+    {
+        functionInput = "x^3 + 2*x - 2";
+        aInput = 0;
+        bInput = 1;
+        iterations.Clear();
+        UseIterationLimit = false;
+        UseErrorThreshold = false;
     }
 
     private double f(double xValue, out string formulaDisplay)
@@ -312,13 +322,13 @@
                 .Replace("exp", "Exp");
 
             if (exprString.Contains("^"))
-                exprString = Regex.Replace(exprString, @"([a-zA-Z0-9\.]+)\^([a-zA-Z0-9\.]+)", "Pow($1, $2)");
+                exprString = System.Text.RegularExpressions.Regex.Replace(exprString, @"([a-zA-Z0-9\.]+)\^([a-zA-Z0-9\.]+)", "Pow($1, $2)");
 
             var expression = new NCalc.Expression(exprString);
             expression.Parameters["x"] = xValue;
 
-            string xStr = xValue.ToString("G6", CultureInfo.InvariantCulture);
-            formulaDisplay = functionInput.Replace("x", "({xStr})");
+            string xStr = xValue.ToString("G6", System.Globalization.CultureInfo.InvariantCulture);
+            formulaDisplay = functionInput.Replace("x", $"({xStr})");
 
             var result = expression.Evaluate();
             return Convert.ToDouble(result);
@@ -347,6 +357,7 @@
         double b = Normalize(bInput);
         double xrOld = 0;
         int i = 1;
+        double defaultTolerance = 0.0001;
 
         try
         {
@@ -355,7 +366,7 @@
 
             if (fa_check * fb_check >= 0)
             {
-                ToastService.ShowError("Initial signs must be opposite.");
+                ToastService.ShowError("Initial signs must be opposite for Bisection.");
                 return;
             }
 
@@ -375,16 +386,24 @@
                         double rawError = Math.Abs((xr - xrOld) / xr) * 100;
                         ea = Normalize(rawError);
                     }
-                    else 
+                    else
                         ea = 0;
                 }
 
                 iterations.Add(new IterationResult
                 {
-                    Index = i, A = a, B = b, Fa = fa, Fb = fb, Xr = xr, Fxr = fxr, Error = ea
+                    Index = i,
+                    A = a,
+                    B = b,
+                    Fa = fa,
+                    Fb = fb,
+                    Xr = xr,
+                    Fxr = fxr,
+                    Error = ea
                 });
 
-                bool rootFound = Math.Abs(fxr) < 1e-9;
+                // Automatically stop if the error is 0.0000, OR if the rounding mathematically locked the variable
+                bool rootFound = Math.Abs(fxr) <= defaultTolerance || (i > 1 && xr == xrOld);
                 bool stopByIter = UseIterationLimit && i >= totalIteration;
                 bool stopByError = UseErrorThreshold && errorThreshold.HasValue && ea.HasValue && ea <= errorThreshold.Value;
 
@@ -402,7 +421,7 @@
                 if (i >= 1000)
                     keepIterating = false;
 
-                if (fa * fxr < 0) 
+                if (fa * fxr < 0)
                     b = xr;
                 else
                     a = xr;
@@ -412,7 +431,7 @@
             }
         }
         catch (Exception ex)
-        { 
+        {
             ToastService.ShowError($"Check your formula format: {ex.Message}");
         }
     }
